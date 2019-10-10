@@ -8,17 +8,17 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0
     labels:
-      - traefik.http.frontend.rule=Host:bogdan-kolesnikov.local,www.bogdan-kolesnikov.local
-      - traefik.https.frontend.rule=Host:bogdan-kolesnikov.local,www.bogdan-kolesnikov.local
+      - traefik.http.frontend.rule=Host:bogdan-kolesnikov.local,www.bogdan-kolesnikov.local,bogdan-ko.local,www.bogdan-ko.local
+      - traefik.https.frontend.rule=Host:bogdan-kolesnikov.local,www.bogdan-kolesnikov.local,bogdan-ko.local,www.bogdan-ko.local
       # develop with extension that allows setting livereload host and port - https://github.com/lokcito/livereload-extensions
-      - traefik.grunt.frontend.rule=Host:bogdan-kolesnikov.local,www.bogdan-kolesnikov.local
+      - traefik.grunt.frontend.rule=Host:bogdan-kolesnikov.local,www.bogdan-kolesnikov.local,bogdan-ko.local,www.bogdan-ko.local
       - traefik.grunt.frontend.entryPoints=grunt
       - traefik.grunt.protocol=http
       - traefik.grunt.port=35729
     extra_hosts:
       # For Linux users only till docker.host.internal is not available by default
       # https://github.com/docker/libnetwork/pull/2348/files
-      - "bogdan-kolesnikov.local www.bogdan-kolesnikov.local:127.0.0.1"
+      - "bogdan-kolesnikov.local www.bogdan-kolesnikov.local bogdan-ko.local www.bogdan-ko.local:127.0.0.1"
       - "host.docker.internal:172.17.0.1"
     environment:
       # Must be set to some of the domains for xdebug to work. Should have server configured in
