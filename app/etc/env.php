@@ -1,3 +1,4 @@
+<?php
 return [
     'backend' => [
         'frontName' => 'admin'
