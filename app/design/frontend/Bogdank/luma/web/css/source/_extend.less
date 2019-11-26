@@ -4,7 +4,6 @@
 @color-white: #fff;
 
 
-
 @header-panel__background-color: @color-dark-blue;
 
 @footer__background-color: @color-blue;
@@ -58,4 +57,16 @@
 @message-warning-link__color: @color-blue;
 @message-warning-link__color-hover: @link__hover__color;
 @message-warning-icon__color-inner: @error__color;
+
+.block.newsletter .title {
+  display: inline-block;
+}
+
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+
+  .block.newsletter .title {
+    color: #fff;
+  }
+}
 

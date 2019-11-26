@@ -23,7 +23,7 @@ services:
         - MEMCACHED=0
     restart: always
     labels:
-      # - traefik.enable=false
+      - traefik.enable=true
       - traefik.http.frontend.rule=Host:bogdan-kolesnikov.local,www.bogdan-kolesnikov.local,bogdan-ko.local,www.bogdan-ko.local
       - traefik.http.frontend.entryPoints=http
       - traefik.https.frontend.rule=Host:bogdan-kolesnikov.local,www.bogdan-kolesnikov.local,bogdan-ko.local,www.bogdan-ko.local
@@ -33,12 +33,12 @@ services:
     # Must add extra_hosts to be written to /etc/hosts - otherwise containerized application can not curl itself
     extra_hosts:
       - "bogdan-kolesnikov.local www.bogdan-kolesnikov.local bogdan-ko.local www.bogdan-ko.local:127.0.0.1"
-#    links:
-#      - memcached
+    #    links:
+    #      - memcached
     external_links:
       - mysql57:mysql
-#    networks:
-#      - reverse-proxy
+    #    networks:
+    #      - reverse-proxy
     network_mode: bridge
     volumes:
       - .:/var/www/html

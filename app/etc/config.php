@@ -237,6 +237,8 @@ return [
         'Amazon_Core' => 1,
         'Amazon_Login' => 1,
         'Amazon_Payment' => 1,
+        'Bogdank_Bogdank_CMS' => 1,
+        'Bogdank_Catalog' => 1,
         'Bogdank_LayoutDebug' => 1,
         'Dotdigitalgroup_Email' => 1,
         'Klarna_Core' => 1,
