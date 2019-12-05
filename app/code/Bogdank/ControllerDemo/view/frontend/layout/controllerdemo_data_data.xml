@@ -3,7 +3,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="demo-data">
-            <block class="Bogdank\ControllerDemo\ProjectRepository\RepositoryData"
+            <block class="Bogdank\ControllerDemo\Block\RepositoryData"
                    template="Bogdank_ControllerDemo::repository.phtml"/>
         </referenceContainer>
     </body>

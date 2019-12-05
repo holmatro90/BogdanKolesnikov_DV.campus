@@ -1,14 +1,14 @@
 <?php
-declare(strict_types=1);
+declare (strict_types=1);
 
 
-namespace Bogdank\ControllerDemo\ProjectRepository;
+namespace Bogdank\ControllerDemo\Block;
 
 use Magento\Framework\View\Element\Template;
 
 /**
  * Class RepositoryData
- * @package Bogdank\ControllerDemo\ProjectRepository
+ * @package Bogdank\ControllerDemo\Block
  */
 class RepositoryData extends Magento\Framework\View\Element\Template
 {

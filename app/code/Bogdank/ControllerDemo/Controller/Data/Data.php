@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare (strict_types=1);
 
 
 namespace Bogdank\ControllerDemo\Controller\Data;
@@ -31,7 +31,6 @@ class Data extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
-        $this->getRequest()->getParams();
         return $this->resultPageFactory->create();
     }
 }
