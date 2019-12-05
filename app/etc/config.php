@@ -239,6 +239,7 @@ return [
         'Amazon_Payment' => 1,
         'Bogdank_Bogdank_CMS' => 1,
         'Bogdank_Catalog' => 1,
+        'Bogdank_ControllerDemo' => 1,
         'Bogdank_LayoutDebug' => 1,
         'Dotdigitalgroup_Email' => 1,
         'Klarna_Core' => 1,
