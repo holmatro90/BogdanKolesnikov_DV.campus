@@ -10,7 +10,7 @@ use Magento\Framework\View\Element\Template;
  * Class RepositoryData
  * @package Bogdank\ControllerDemo\Block
  */
-class RepositoryData extends Magento\Framework\View\Element\Template
+class RepositoryData extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var array
@@ -33,7 +33,7 @@ class RepositoryData extends Magento\Framework\View\Element\Template
      */
     public function getName(): string
     {
-        return $this->getRepository['firstName'] . '' . $this->getRepository['lastName'];
+        return $this->getRepository['firstName'] . ' ' . $this->getRepository['lastName'];
     }
 
     public function getLink(): string

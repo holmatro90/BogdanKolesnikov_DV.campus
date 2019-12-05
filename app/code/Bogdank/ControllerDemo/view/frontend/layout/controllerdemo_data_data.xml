@@ -2,8 +2,9 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="demo-data">
+        <referenceContainer name="content">
             <block class="Bogdank\ControllerDemo\Block\RepositoryData"
+                   name="demo.data.info"
                    template="Bogdank_ControllerDemo::repository.phtml"/>
         </referenceContainer>
     </body>
