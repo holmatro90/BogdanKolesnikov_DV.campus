@@ -1,5 +1,5 @@
 # SSL certificates for development
-# $ mkcert bogdan-kolesnikov.local www.bogdan-kolesnikov.local bogdan-ko.local www.bogdan-ko.local
+# $ mkcert bogdan-kolesnikov.local www.bogdan-kolesnikov.local
 #
 # DEVELOPMENT:
 # $ docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d
@@ -24,21 +24,21 @@ services:
     restart: always
     labels:
       - traefik.enable=true
-      - traefik.http.frontend.rule=Host:bogdan-kolesnikov.local,www.bogdan-kolesnikov.local,bogdan-ko.local,www.bogdan-ko.local
+      - traefik.http.frontend.rule=Host:bogdan-kolesnikov.local,www.bogdan-kolesnikov.local
       - traefik.http.frontend.entryPoints=http
-      - traefik.https.frontend.rule=Host:bogdan-kolesnikov.local,www.bogdan-kolesnikov.local,bogdan-ko.local,www.bogdan-ko.local
+      - traefik.https.frontend.rule=Host:bogdan-kolesnikov.local,www.bogdan-kolesnikov.local
       - traefik.https.frontend.entryPoints=https
       - traefik.https.protocol=https
       - traefik.https.port=443
     # Must add extra_hosts to be written to /etc/hosts - otherwise containerized application can not curl itself
     extra_hosts:
-      - "bogdan-kolesnikov.local www.bogdan-kolesnikov.local bogdan-ko.local www.bogdan-ko.local:127.0.0.1"
-    #    links:
-    #      - memcached
+      - "bogdan-kolesnikov.local www.bogdan-kolesnikov.local:127.0.0.1"
+#    links:
+#      - memcached
     external_links:
       - mysql57:mysql
-    #    networks:
-    #      - reverse-proxy
+#    networks:
+#      - reverse-proxy
     network_mode: bridge
     volumes:
       - .:/var/www/html

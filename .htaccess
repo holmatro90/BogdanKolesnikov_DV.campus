@@ -143,13 +143,6 @@
     Options +FollowSymLinks
     RewriteEngine on
 
-    SetEnvIf Host .*bogdan-kolesnikov.local.* MAGE_RUN_CODE=base
-    SetEnvIf Host .*bogdan-kolesnikov.local.* MAGE_RUN_TYPE=website
-
-    SetEnvIf Host .*bogdan-ko.local.* MAGE_RUN_CODE=testing_new_website
-    SetEnvIf Host .*bogdan-ko.local.* MAGE_RUN_TYPE=website
-
-
 ############################################
 ## you can put here your magento root folder
 ## path relative to web root
@@ -430,42 +423,3 @@ ErrorDocument 403 /pub/errors/404.php
     </FilesMatch>
 
 </IfModule>
-
-
-
-    <Files docker-compose-dev.yml>
-        <IfVersion < 2.4>
-            order allow,deny
-            deny from all
-        </IfVersion>
-        <IfVersion >= 2.4>
-            Require all denied
-        </IfVersion>
-    </Files>
-    <Files docker-compose.yml>
-        <IfVersion < 2.4>
-            order allow,deny
-            deny from all
-        </IfVersion>
-        <IfVersion >= 2.4>
-            Require all denied
-        </IfVersion>
-    </Files>
-    <Files docker-rebuild.sh>
-        <IfVersion < 2.4>
-            order allow,deny
-            deny from all
-        </IfVersion>
-        <IfVersion >= 2.4>
-            Require all denied
-        </IfVersion>
-    </Files>
-    <Files docker-sync.yml>
-        <IfVersion < 2.4>
-            order allow,deny
-            deny from all
-        </IfVersion>
-        <IfVersion >= 2.4>
-            Require all denied
-        </IfVersion>
-    </Files>
