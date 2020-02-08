@@ -68,7 +68,10 @@ define([
                 /** @inheritdoc */
                 success: function (response) {
                     $('body').trigger('processStop');
-                    // @TODO: show new preferences
+                    alert ({
+                        title: $.mage.__('Success'),
+                        content: $.mage.__(response.message)
+                    });
                 },
 
                 /** @inheritdoc */
@@ -76,8 +79,7 @@ define([
                     $('body').trigger('processStop');
                     alert({
                         title: $.mage.__('Error'),
-                        /*eslint max-len: ["error", { "ignoreStrings": true }]*/
-                        content: $.mage.__('Your preferences can\'t be saved. Please, contact us if ypu see this message.')
+                        content: $.mage.__('Your message can\'t be send. Please, contact us if you see this message another way.')
                     });
                 }
             });

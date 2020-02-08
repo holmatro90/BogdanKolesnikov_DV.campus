@@ -5,7 +5,7 @@
           id="bogdank-support-chat-form"
           method="post"
           data-mage-init='{"bogdank_supportChat_chatForm":{
-            "action": "<?= $block->escapeUrl($block->getUrl('bogdank/preferences/save')) ?>"
+            "action": "<?= $block->escapeUrl($block->getUrl('bogdank_support_chat/chat/chat')) ?>"
           }}'
           onsubmit="return false;"
     >
@@ -43,8 +43,8 @@
         <div class="actions-toolbar">
             <div class="primary">
                 <input type="hidden" name="hideit" id="hideit" value=""/>
-                <button type="submit" title="<?= $block->escapeHtmlAttr(__('Save')) ?>" class="action submit primary">
-                    <span><?= $block->escapeHtml(__('Save')) ?></span>
+                <button type="submit" title="<?= $block->escapeHtmlAttr(__('Send')) ?>" class="action submit primary">
+                    <span><?= $block->escapeHtml(__('Send')) ?></span>
                 </button>
             </div>
         </div>
