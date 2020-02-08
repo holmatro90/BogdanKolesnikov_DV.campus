@@ -1,0 +1,33 @@
+& when (@media-common = true) {
+  .bogdank-support-chat-button {
+    background-color: @color-dark-blue;
+    border: @border-width__base solid @color-dark-blue;
+    border-radius: 50%;
+    bottom: 80px;
+    padding: 7px;
+    position: fixed;
+    right: -62px;
+    text-orientation: upright;
+    writing-mode: vertical-rl;
+
+    &.active {
+      right: 41px;
+    }
+  }
+
+  .svg-icon {
+    width: 3em;
+    height: 3em;
+  }
+
+  .svg-icon path,
+  .svg-icon polygon,
+  .svg-icon rect {
+    fill: @color-white;
+  }
+
+  .svg-icon circle {
+    stroke: @color-white;
+    stroke-width: 1;
+  }
+}

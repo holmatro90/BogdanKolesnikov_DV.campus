@@ -241,6 +241,7 @@ return [
         'Bogdank_Catalog' => 1,
         'Bogdank_ControllerDemo' => 1,
         'Bogdank_LayoutDebug' => 1,
+        'Bogdank_SupportChat' => 1,
         'Dotdigitalgroup_Email' => 1,
         'Klarna_Core' => 1,
         'Klarna_Ordermanagement' => 1,

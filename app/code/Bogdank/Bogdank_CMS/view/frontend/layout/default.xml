@@ -3,7 +3,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="after.body.start">
-            <container name="demo.sore.head" htmlTag="div" htmlClass="message error">
+            <container name="demo.sore.head" htmlTag="div" htmlClass="message error header-message">
                 <block class="Magento\Cms\Block\Block" name="demo_store">
                     <arguments>
                         <argument name="block_id" xsi:type="string">demo_store</argument>
