@@ -28,7 +28,7 @@ define([
          */
         _destroy: function () {
             $(this.element).off('click.bogdank_SupportChat');
-            $(this.element).off('dbogdank_SupportChat_closePreferences.bogdank_SupportChat');
+            $(this.element).off('bogdank_SupportChat_closePreferences.bogdank_SupportChat');
 
         },
 

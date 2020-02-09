@@ -29,6 +29,7 @@ define([
 
         savePreferences: function () {
             if (!this.validateForm()) {
+                validationAlert();
                 return;
             }
 
@@ -68,7 +69,7 @@ define([
                 /** @inheritdoc */
                 success: function (response) {
                     $('body').trigger('processStop');
-                    alert ({
+                    alert({
                         title: $.mage.__('Success'),
                         content: $.mage.__(response.message)
                     });

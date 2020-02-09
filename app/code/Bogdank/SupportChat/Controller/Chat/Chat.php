@@ -18,14 +18,14 @@ class Chat extends \Magento\Framework\App\Action\Action implements
      * @inheritDoc
      */
 
-        public function execute()
-        {
-            /**@var JsonResult $response */
-            $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-            $response->setData([
-                'message' => 'Send'
-            ]);
+    public function execute()
+    {
+        /**@var JsonResult $response */
+        $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
+        $response->setData([
+            'message' => 'Send'
+        ]);
 
-            return $response;
-        }
+        return $response;
+    }
 }
