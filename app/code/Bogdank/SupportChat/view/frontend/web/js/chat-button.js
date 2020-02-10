@@ -17,7 +17,7 @@ define([
         _create: function () {
             $(this.element).on('click.bogdank_SupportChat', $.proxy(this.openPreferences, this));
             $(this.element).on('bogdank_SupportChat_closePreferences.bogdank_SupportChat', $.proxy(this.closePreferences, this));
-            $(document).on('click.bogdank_SupportChat', $.proxy(this.editPreferences, this));
+            $('.bogdank-support-chat-button').on('click.bogdank_SupportChat', $.proxy(this.editPreferences, this));
 
             $(this.element).show();
         },

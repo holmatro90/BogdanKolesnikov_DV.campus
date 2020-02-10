@@ -7,6 +7,7 @@ define([
 
     $.widget('bogdankSupportChat.form', {
         options: {
+            sidebarOpenButton: '#bogdank-support-chat-button',
             action: ''
         },
 
@@ -36,12 +37,18 @@ define([
             this.ajaxSubmit();
         },
 
+        closed: function (){
+            $(this.options.sidebarOpenButton).addClass('active'); 
+        },
+
         /**
          * Validate request form
          */
         validateForm: function () {
             return $(this.element).validation().valid();
         },
+
+
 
         /**
          * Submit request via AJAX. Add form key to the post data.
