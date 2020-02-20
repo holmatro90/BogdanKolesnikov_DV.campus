@@ -7,7 +7,6 @@ define([
 
     $.widget('bogdankSupportChat.form', {
         options: {
-            sidebarOpenButton: '#bogdank-support-chat-button',
             action: ''
         },
 
@@ -36,9 +35,8 @@ define([
 
             this.ajaxSubmit();
         },
-
         closed: function (){
-            $(this.options.sidebarOpenButton).addClass('active'); 
+
         },
 
         /**
@@ -47,8 +45,6 @@ define([
         validateForm: function () {
             return $(this.element).validation().valid();
         },
-
-
 
         /**
          * Submit request via AJAX. Add form key to the post data.
@@ -76,10 +72,7 @@ define([
                 /** @inheritdoc */
                 success: function (response) {
                     $('body').trigger('processStop');
-                    alert({
-                        title: $.mage.__('Success'),
-                        content: $.mage.__(response.message)
-                    });
+                    this.renderMessage(response);
                 },
 
                 /** @inheritdoc */
@@ -92,6 +85,21 @@ define([
                 }
             });
         },
+        renderMessage: function (messageData) {
+            var today = new Date();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            var $messageList = $('#chat-messages');
+            var $messageItem = $('<li>').addClass('message-item customer-message');
+            var $customerName = $('<p>').addClass('customer-name').text(messageData.customerName +' '+ time);
+            var $customerMessage = $('<p>').addClass('customer-message-body').text(messageData.message);
+            var $messageItemAdmin = $('<li>').addClass('message-item admin-message');
+            var $adminMessage = $('<p>').addClass('admin-message-body').text('Our admins will contact you shortly');
+            $messageItem.append($customerName);
+            $messageItem.append($customerMessage);
+            $messageList.append($messageItem);
+            $messageItemAdmin.append($adminMessage);
+            $messageList.append($messageItemAdmin);
+        }
     });
 
     return $.bogdankSupportChat.form;

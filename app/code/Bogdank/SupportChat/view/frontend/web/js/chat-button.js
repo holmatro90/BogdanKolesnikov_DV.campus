@@ -49,7 +49,6 @@ define([
         closePreferences: function () {
             $(this.element).addClass('active');
         },
-
         editPreferences: function () {
             $(this.options.form).data('mage-modal').openModal();
         }

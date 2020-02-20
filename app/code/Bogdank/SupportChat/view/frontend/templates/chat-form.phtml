@@ -1,5 +1,6 @@
 <?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
-<div style="display: none;">
+<div>
+
     <form class="form"
           action="javascript:void(0);"
           id="bogdank-support-chat-form"
@@ -8,7 +9,11 @@
             "action": "<?= $block->escapeUrl($block->getUrl('supportchat/chat/chat')) ?>"
           }}'
           onsubmit="return false;"
+          style="display: none;"
     >
+        <div>
+        <ul id="chat-messages"></ul>
+        </div>
         <fieldset class="fieldset">
             <legend class="legend">
                 <span><?= $block->escapeHtml(__('Contact Us')) ?></span>

@@ -1,4 +1,9 @@
 & when (@media-common = true) {
+
+  .actions-toolbar {
+    padding: 20px 0;
+  }
+
   .bogdank-support-chat-button {
     background-color: @color-dark-blue;
     border: @border-width__base solid @color-dark-blue;
@@ -29,5 +34,43 @@
   .svg-icon circle {
     stroke: @color-white;
     stroke-width: 1;
+  }
+}
+.fieldset {
+  display: contents;
+}
+
+#chat-messages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  .message-item {
+    clear: both;
+    display: inline-block;
+  }
+}
+.admin-message {
+  float: left;
+  .admin-message-body {
+    background: #eeeeee;
+    border-radius: 30px;
+    margin-bottom: 2px;
+    padding: 10px;
+  }
+}
+
+.customer-message {
+  float: right;
+  .customer-name {
+    color: #9e9e9e;
+    float: right;
+  }
+  .customer-message-body {
+    background: #0084ff;
+    border-radius: 30px;
+    color: #fff;
+    clear: both;
+    margin-bottom: 2px;
+    padding: 10px;
   }
 }
