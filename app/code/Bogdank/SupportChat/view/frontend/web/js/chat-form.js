@@ -13,22 +13,16 @@ define([
          * @private
          */
         _create: function () {
+            var self = this;
             this.modal = $(this.element).modal({
                 closed: function (e) {
-                    $(this.options.chatButton).trigger('bogdank_SupportChat_closePreferences.bogdank_SupportChat');
-                    this._destroy();
+                    $(self.options.chatButton).trigger('bogdank_SupportChat_closePreferences.bogdank_SupportChat');
                 },
                 buttons: []
             });
 
             $(this.element).on('submit.bogdank_SupportChat', $.proxy(this.savePreferences, this));
         },
-
-        // _destroy: function () {
-        //     this.modal.closeModal();
-        //     $(this.element).off('closeBtn.bogdank_SupportChat');
-        //     this.modal.destroy();
-        // },
 
         _destroy: function () {
           $(document).off('bogdank_SupportChat_closePreferences.bogdank_SupportChat');
