@@ -1,13 +1,12 @@
 define([
     'jquery',
-    'Magento_Ui/js/modal/alert',
     'Magento_Ui/js/modal/modal'
-], function ($, alert) {
+], function ($, modal) {
     'use strict';
 
     $.widget('bogdankSupportChat.form', {
         options: {
-            action: ''
+            chatButton: '.bogdank-support-chat-button'
         },
 
         /**
@@ -15,17 +14,27 @@ define([
          */
         _create: function () {
             this.modal = $(this.element).modal({
+                closed: function (e) {
+                    $(this.options.chatButton).trigger('bogdank_SupportChat_closePreferences.bogdank_SupportChat');
+                    this._destroy();
+                },
                 buttons: []
             });
 
             $(this.element).on('submit.bogdank_SupportChat', $.proxy(this.savePreferences, this));
         },
 
+        // _destroy: function () {
+        //     this.modal.closeModal();
+        //     $(this.element).off('closeBtn.bogdank_SupportChat');
+        //     this.modal.destroy();
+        // },
+
         _destroy: function () {
-            this.modal.closeModal();
-            $(this.element).off('closeBtn.bogdank_SupportChat');
-            this.modal.destroy();
+          $(document).off('bogdank_SupportChat_closePreferences.bogdank_SupportChat');
+          $(this.options.chatButton).off('bogdank_SupportChat_closePreferences.bogdank_SupportChat');
         },
+
 
         savePreferences: function () {
             if (!this.validateForm()) {
@@ -35,7 +44,7 @@ define([
 
             this.ajaxSubmit();
         },
-        closed: function (){
+        closed: function () {
 
         },
 
@@ -73,15 +82,6 @@ define([
                 success: function (response) {
                     $('body').trigger('processStop');
                     this.renderMessage(response);
-                },
-
-                /** @inheritdoc */
-                error: function () {
-                    $('body').trigger('processStop');
-                    alert({
-                        title: $.mage.__('Error'),
-                        content: $.mage.__('Your message can\'t be send. Please, contact us if you see this message another way.')
-                    });
                 }
             });
         },
@@ -90,7 +90,7 @@ define([
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
             var $messageList = $('#chat-messages');
             var $messageItem = $('<li>').addClass('message-item customer-message');
-            var $customerName = $('<p>').addClass('customer-name').text(messageData.customerName +' '+ time);
+            var $customerName = $('<p>').addClass('customer-name').text(messageData.customerName + ' ' + time);
             var $customerMessage = $('<p>').addClass('customer-message-body').text(messageData.message);
             var $messageItemAdmin = $('<li>').addClass('message-item admin-message');
             var $adminMessage = $('<p>').addClass('admin-message-body').text('Our admins will contact you shortly');

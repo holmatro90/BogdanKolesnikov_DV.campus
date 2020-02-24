@@ -47,8 +47,12 @@ define([
          * Close preferences sidebar
          */
         closePreferences: function () {
-            $(this.element).addClass('active');
+            if (this.options.hideButton) {
+                $(this.element).addClass('active');
+            }
+
         },
+
         editPreferences: function () {
             $(this.options.form).data('mage-modal').openModal();
         }
