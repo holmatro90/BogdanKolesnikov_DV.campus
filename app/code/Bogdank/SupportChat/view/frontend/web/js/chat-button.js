@@ -2,23 +2,24 @@ define([
     'jquery',
     'jquery/ui',
     'bogdank_supportChat_chatForm'
-], function ($) {
+], function ($ ) {
     'use strict';
 
     $.widget('bogdankSupportChat.openButton', {
         options: {
             hideButton: true,
-            form: '#bogdank-support-chat-form'
+            form: '#bogdank-support-chat-form',
+            closeChat: '.chat-destroy'
         },
 
         /**
          * @private
          */
         _create: function () {
-            $(this.element).on('click.bogdank_SupportChat', $.proxy(this.openPreferences, this));
-            $(this.element).on('bogdank_SupportChat_closePreferences.bogdank_SupportChat', $.proxy(this.closePreferences, this));
-            $('.bogdank-support-chat-button').on('click.bogdank_SupportChat', $.proxy(this.editPreferences, this));
-
+            $(this.element).on('click.bogdank_SupportChat', $.proxy(this.openChat, this));
+            $(this.element).on('bogdank_SupportChat_closeChat.bogdank_SupportChat', $.proxy(this.closeChat, this));
+            $('.bogdank-support-chat-button').on('click.bogdank_SupportChat', $.proxy(this.editChat, this));
+            $(this.options.closeChat).on('click.bogdank_SupportChat', $.proxy(this.destroyChat, this));
             $(this.element).show();
         },
 
@@ -28,16 +29,16 @@ define([
          */
         _destroy: function () {
             $(this.element).off('click.bogdank_SupportChat');
-            $(this.element).off('bogdank_SupportChat_closePreferences.bogdank_SupportChat');
-
+            $(this.element).off('bogdank_SupportChat_closeChat.bogdank_SupportChat');
+            $('.bogdank-support-chat-button').on('click.bogdank_SupportChat');
+            $(this.options.closeChat).on('click.bogdank_SupportChat');
         },
 
         /**
          * Open preferences sidebar
          */
-        openPreferences: function () {
-            $(document).trigger('bogdank_SupportChat_openPreferences');
-
+        openChat: function () {
+            $(document).trigger('bogdank_SupportChat_openChat');
             if (this.options.hideButton) {
                 $(this.element).removeClass('active');
             }
@@ -46,14 +47,18 @@ define([
         /**
          * Close preferences sidebar
          */
-        closePreferences: function () {
+        closeChat: function () {
             if (this.options.hideButton) {
                 $(this.element).addClass('active');
             }
 
         },
 
-        editPreferences: function () {
+        destroyChat: function () {
+            $(this.options.form).data('bogdankSupportChatForm').destroy();
+        },
+
+        editChat: function () {
             $(this.options.form).data('mage-modal').openModal();
         }
     });

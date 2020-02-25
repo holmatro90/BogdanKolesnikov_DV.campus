@@ -6,7 +6,8 @@ define([
 
     $.widget('bogdankSupportChat.form', {
         options: {
-            chatButton: '.bogdank-support-chat-button'
+            chatButton: '.bogdank-support-chat-button',
+            chatMessage: '#chat-messages'
         },
 
         /**
@@ -16,21 +17,23 @@ define([
             var self = this;
             this.modal = $(this.element).modal({
                 closed: function (e) {
-                    $(self.options.chatButton).trigger('bogdank_SupportChat_closePreferences.bogdank_SupportChat');
+                    $(self.options.chatButton).trigger('bogdank_SupportChat_closeChat.bogdank_SupportChat');
                 },
                 buttons: []
             });
 
-            $(this.element).on('submit.bogdank_SupportChat', $.proxy(this.savePreferences, this));
+            $(this.element).on('submit.bogdank_SupportChat', $.proxy(this.saveChat, this));
         },
-
+        /**
+         * @private
+         */
         _destroy: function () {
-          $(document).off('bogdank_SupportChat_closePreferences.bogdank_SupportChat');
-          $(this.options.chatButton).off('bogdank_SupportChat_closePreferences.bogdank_SupportChat');
+            $(document).off('bogdank_SupportChat_closeChat.bogdank_SupportChat');
+            this.clearChat();
         },
 
 
-        savePreferences: function () {
+        saveChat: function () {
             if (!this.validateForm()) {
                 validationAlert();
                 return;
@@ -38,10 +41,10 @@ define([
 
             this.ajaxSubmit();
         },
-        closed: function () {
 
+        clearChat: function () {
+            $(this.options.chatMessage).empty();
         },
-
         /**
          * Validate request form
          */
