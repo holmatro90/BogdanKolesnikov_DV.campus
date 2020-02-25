@@ -1,8 +1,8 @@
 define([
     'jquery',
     'jquery/ui',
-    'bogdank_supportChat_chatForm'
-], function ($ ) {
+    'Bogdank_SupportChat/js/chat-form'
+], function ($, bogdankSupportChatForm) {
     'use strict';
 
     $.widget('bogdankSupportChat.openButton', {
@@ -56,6 +56,7 @@ define([
 
         destroyChat: function () {
             $(this.options.form).data('bogdankSupportChatForm').destroy();
+            bogdankSupportChatForm({}, $(this.options.closeChat));
         },
 
         editChat: function () {
