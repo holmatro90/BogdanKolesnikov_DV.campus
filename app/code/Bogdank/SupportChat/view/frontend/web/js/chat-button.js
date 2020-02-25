@@ -9,7 +9,7 @@ define([
         options: {
             hideButton: true,
             form: '#bogdank-support-chat-form',
-            closeChat: '.chat-destroy'
+            closeChatMessage: '.chat-destroy'
         },
 
         /**
@@ -19,23 +19,22 @@ define([
             $(this.element).on('click.bogdank_SupportChat', $.proxy(this.openChat, this));
             $(this.element).on('bogdank_SupportChat_closeChat.bogdank_SupportChat', $.proxy(this.closeChat, this));
             $('.bogdank-support-chat-button').on('click.bogdank_SupportChat', $.proxy(this.editChat, this));
-            $(this.options.closeChat).on('click.bogdank_SupportChat', $.proxy(this.destroyChat, this));
+            $(this.options.closeChatMessage).on('click.bogdank_SupportChat', $.proxy(this.destroyChat, this));
             $(this.element).show();
         },
 
         /**
-         * jQuery(jQuery('.dv-campus-customer-preferences-open-button').get(0)).data('dvCampusCustomerPreferencesOpenButton').destroy()
          * @private
          */
         _destroy: function () {
             $(this.element).off('click.bogdank_SupportChat');
             $(this.element).off('bogdank_SupportChat_closeChat.bogdank_SupportChat');
             $('.bogdank-support-chat-button').on('click.bogdank_SupportChat');
-            $(this.options.closeChat).on('click.bogdank_SupportChat');
+            $(this.options.closeChatMessage).on('click.bogdank_SupportChat');
         },
 
         /**
-         * Open preferences sidebar
+         * Hide chat button
          */
         openChat: function () {
             $(document).trigger('bogdank_SupportChat_openChat');
@@ -45,7 +44,7 @@ define([
         },
 
         /**
-         * Close preferences sidebar
+         * Show chat button
          */
         closeChat: function () {
             if (this.options.hideButton) {
@@ -56,7 +55,7 @@ define([
 
         destroyChat: function () {
             $(this.options.form).data('bogdankSupportChatForm').destroy();
-            bogdankSupportChatForm({}, $(this.options.closeChat));
+            bogdankSupportChatForm({}, $(this.options.form));
         },
 
         editChat: function () {
