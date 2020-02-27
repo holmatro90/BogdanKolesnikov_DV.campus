@@ -18,7 +18,6 @@ define([
         _create: function () {
             $(this.element).on('click.bogdank_SupportChat', $.proxy(this.openChat, this));
             $(this.element).on('bogdank_SupportChat_closeChat.bogdank_SupportChat', $.proxy(this.closeChat, this));
-            $('.bogdank-support-chat-button').on('click.bogdank_SupportChat', $.proxy(this.editChat, this));
             $(this.options.closeChatMessage).on('click.bogdank_SupportChat', $.proxy(this.destroyChat, this));
             $(this.element).show();
         },
@@ -29,8 +28,7 @@ define([
         _destroy: function () {
             $(this.element).off('click.bogdank_SupportChat');
             $(this.element).off('bogdank_SupportChat_closeChat.bogdank_SupportChat');
-            $('.bogdank-support-chat-button').on('click.bogdank_SupportChat');
-            $(this.options.closeChatMessage).on('click.bogdank_SupportChat');
+            $(this.options.closeChatMessage).off('click.bogdank_SupportChat');
         },
 
         /**
@@ -38,6 +36,7 @@ define([
          */
         openChat: function () {
             $(document).trigger('bogdank_SupportChat_openChat');
+            $(this.options.form).data('mage-modal').openModal();
             if (this.options.hideButton) {
                 $(this.element).removeClass('active');
             }
@@ -54,12 +53,7 @@ define([
         },
 
         destroyChat: function () {
-            $(this.options.form).data('bogdankSupportChatForm').destroy();
-            bogdankSupportChatForm({}, $(this.options.form));
-        },
-
-        editChat: function () {
-            $(this.options.form).data('mage-modal').openModal();
+            $(this.options.form).data('bogdankSupportChatForm')._destroy();
         }
     });
 
