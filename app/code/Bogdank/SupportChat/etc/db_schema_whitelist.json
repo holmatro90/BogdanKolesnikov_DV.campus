@@ -1,0 +1,26 @@
+{
+  "bogdank_support_chat": {
+    "column": {
+      "message_id": true,
+      "user_type": true,
+      "user_id": true,
+      "user_name": true,
+      "message": true,
+      "website_id": true,
+      "chat_hash": true,
+      "created_at": true
+    },
+    "index": {
+      "BOGDANK_SUPPORT_CHAT_USER_TYPE": true,
+      "DBOGDANK_SUPPORT_CHAT_USER_ID": true,
+      "BOGDANK_SUPPORT_CHAT_MESSAGE": true,
+      "BOGDANK_SUPPORT_CHAT_CHAT_HASH": true,
+      "BOGDANK_SUPPORT_CHAT_WEBSITE_ID": true,
+      "BOGDANK_SUPPORT_CHAT_CREATED_AT": true
+    },
+    "constraint": {
+      "PRIMARY": true,
+      "BOGDANK_SUPPORT_CHAT_WS_ID_STORE_WS_WS_ID": true
+    }
+  }
+}

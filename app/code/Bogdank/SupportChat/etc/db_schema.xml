@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="bogdank_support_chat" resource="default" engine="innodb" comment="Support Chat">
+        <column xsi:type="int" name="message_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Message ID"
+        />
+        <column xsi:type="varchar" name="user_type" length="255" nullable="false"
+                comment="User type"
+        />
+        <column xsi:type="int" name="user_id" padding="5" unsigned="true" nullable="false"
+                comment="User ID"
+        />
+        <column xsi:type="varchar" name="user_name" length="255" nullable="false"
+                comment="User name"
+        />
+        <column xsi:type="varchar" name="message" nullable="false" length="255"
+                comment="Message"
+        />
+        <column xsi:type="smallint" name="website_id" padding="5" unsigned="true" nullable="false"
+                comment="Website ID"
+        />
+        <column xsi:type="varchar" name="chat_hash" length="255" nullable="false"
+                comment="Chat Hash"
+        />
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Message time"
+        />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="message_id"/>
+        </constraint>
+        <index referenceId="BOGDANK_SUPPORT_CHAT_USER_TYPE" indexType="btree">
+            <column name="user_type"/>
+        </index>
+        <index referenceId="BOGDANK_SUPPORT_CHAT_USER_ID" indexType="btree">
+            <column name="user_id"/>
+        </index>
+        <index referenceId="BOGDANK_SUPPORT_CHAT_MESSAGE" indexType="btree">
+            <column name="message"/>
+        </index>
+        <index referenceId="BOGDANK_SUPPORT_CHAT_CHAT_HASH" indexType="btree">
+            <column name="chat_hash"/>
+        </index>
+        <index referenceId="BOGDANK_SUPPORT_CHAT_WEBSITE_ID" indexType="btree">
+            <column name="website_id"/>
+        </index>
+        <index referenceId="BOGDANK_SUPPORT_CHAT_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+        <constraint xsi:type="foreign"
+                    referenceId="BOGDANK_SUPPORT_CHAT_WS_ID_STORE_WS_WS_ID"
+                    table="bogdank_support_chat"
+                    column="website_id"
+                    referenceTable="store_website"
+                    referenceColumn="website_id"
+                    onDelete="CASCADE"
+        />
+    </table>
+</schema>
