@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace Bogdank\SupportChat\Model\ResourceModel\Preference;
+namespace Bogdank\SupportChat\Model\ResourceModel\Support;
 
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
@@ -15,7 +15,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     {
         parent::_construct();
         $this->_init(
-            \Bogdank\SupportChat\Model\Preference::class,
+            \Bogdank\SupportChat\Model\Support::class,
             \Klarna\Kp\Model\ResourceModel\Quote::class
         );
     }

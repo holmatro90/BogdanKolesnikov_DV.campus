@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace Bogdank\SupportChat\Model;
 
 
-class Preference extends \Magento\Framework\Model\AbstractModel
+class Support extends \Magento\Framework\Model\AbstractModel
 {
     /**
      * @inheritDoc
@@ -14,6 +14,6 @@ class Preference extends \Magento\Framework\Model\AbstractModel
     protected function _construct(): void
     {
         parent::_construct();
-        $this->_init(\Bogdank\SupportChat\Model\ResourceModel\Preference::class);
+        $this->_init(\Bogdank\SupportChat\Model\ResourceModel\Support::class);
     }
 }

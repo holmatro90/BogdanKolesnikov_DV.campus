@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bogdank\SupportChat\Model\ResourceModel;
 
 
-class Preference extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+class Support extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
     /**
      * @inheritDoc
