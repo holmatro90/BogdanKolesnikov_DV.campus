@@ -2,23 +2,27 @@
 
 declare(strict_types=1);
 
-
 namespace Bogdank\SupportChat\Model;
 
-use http\Message;
 use Magento\Framework\Exception\LocalizedException;
 
 /**
  * @method int getMessageId()
  * @method $this setMessageId(int $messageId)
+ * @method string getUserType()
+ * @method $this setUserType(string $userType)
  * @method int getUserId()
  * @method $this setUserId(int $userId)
+ * @method string getUserName()
+ * @method $this setUserName(string $userName)
  * @method int getMessage()
  * @method $this setMessage(string $message)
  * @method int getWebsiteId()
  * @method $this setWebsiteId(int $websiteId)
+ * @method string getChatHash()
+ * @method $this setChatHash(string $ChatHash)
  */
-class Support extends \Magento\Framework\Model\AbstractModel
+class SupportMessage extends \Magento\Framework\Model\AbstractModel
 {
     /**
      * @inheritDoc
@@ -26,7 +30,7 @@ class Support extends \Magento\Framework\Model\AbstractModel
     protected function _construct(): void
     {
         parent::_construct();
-        $this->_init(\Bogdank\SupportChat\Model\ResourceModel\Support::class);
+        $this->_init(\Bogdank\SupportChat\Model\ResourceModel\SupportMessage::class);
     }
 
     public function beforeSave(): self
@@ -39,7 +43,6 @@ class Support extends \Magento\Framework\Model\AbstractModel
         return $this;
     }
 
-
     /**
      * @throws LocalizedException
      */
@@ -51,6 +54,5 @@ class Support extends \Magento\Framework\Model\AbstractModel
         if (!$this->getWebsiteId()) {
             throw new LocalizedException(__('Can\'t send message: %s is not set.', 'website_id'));
         }
-
     }
 }

@@ -9,7 +9,7 @@ namespace Magento\Setup\Fixtures;
 /**
  * Fixture for generating catalog price rules
  *
- * Support the following format:
+ * SupportMessage the following format:
  * <!-- Number of catalog price rules -->
  * <catalog_price_rules>{int}</catalog_price_rules>
  *

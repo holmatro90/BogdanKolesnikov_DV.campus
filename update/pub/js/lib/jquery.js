@@ -40,7 +40,7 @@
 // Can't do this because several apps including ASP.NET trace
 // the stack via arguments.caller.callee and Firefox dies if
 // you try to trace through "use strict" call chains. (#13335)
-// Support: Firefox 18+
+// SupportMessage: Firefox 18+
 //
 
 var deletedIds = [];
@@ -303,7 +303,7 @@ jQuery.extend({
 			return false;
 		}
 
-		// Support: IE<9
+		// SupportMessage: IE<9
 		// Handle iteration over inherited properties before own properties.
 		if ( support.ownLast ) {
 			for ( key in obj ) {
@@ -465,7 +465,7 @@ jQuery.extend({
 			first[ i++ ] = second[ j++ ];
 		}
 
-		// Support: IE<9
+		// SupportMessage: IE<9
 		// Workaround casting of .length to NaN on otherwise arraylike objects (e.g., NodeLists)
 		if ( len !== len ) {
 			while ( second[j] !== undefined ) {
@@ -731,7 +731,7 @@ var i,
 	funescape = function( _, escaped, escapedWhitespace ) {
 		var high = "0x" + escaped - 0x10000;
 		// NaN means non-codepoint
-		// Support: Firefox
+		// SupportMessage: Firefox
 		// Workaround erroneous numeric interpretation of +"0x"
 		return high !== high || escapedWhitespace ?
 			escaped :
@@ -748,7 +748,7 @@ try {
 		(arr = slice.call( preferredDoc.childNodes )),
 		preferredDoc.childNodes
 	);
-	// Support: Android<4.0
+	// SupportMessage: Android<4.0
 	// Detect silently failing push.apply
 	arr[ preferredDoc.childNodes.length ].nodeType;
 } catch ( e ) {
@@ -759,7 +759,7 @@ try {
 			push_native.apply( target, slice.call(els) );
 		} :
 
-		// Support: IE<9
+		// SupportMessage: IE<9
 		// Otherwise append directly
 		function( target, els ) {
 			var j = target.length,
@@ -910,7 +910,7 @@ function markFunction( fn ) {
 }
 
 /**
- * Support testing using an element
+ * SupportMessage testing using an element
  * @param {Function} fn Passed the created div and expects a boolean result
  */
 function assert( fn ) {
@@ -1060,10 +1060,10 @@ setDocument = Sizzle.setDocument = function( node ) {
 	document = doc;
 	docElem = doc.documentElement;
 
-	// Support tests
+	// SupportMessage tests
 	documentIsHTML = !isXML( doc );
 
-	// Support: IE>8
+	// SupportMessage: IE>8
 	// If iframe document is assigned to "document" variable and if iframe has been reloaded,
 	// IE will throw "permission denied" error when accessing "document" variable, see jQuery #13936
 	// IE6-8 do not support the defaultView property so parent will be undefined
@@ -1083,7 +1083,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	/* Attributes
 	---------------------------------------------------------------------- */
 
-	// Support: IE<8
+	// SupportMessage: IE<8
 	// Verify that getAttribute really returns attributes and not properties (excepting IE8 booleans)
 	support.attributes = assert(function( div ) {
 		div.className = "i";
@@ -1103,15 +1103,15 @@ setDocument = Sizzle.setDocument = function( node ) {
 	support.getElementsByClassName = rnative.test( doc.getElementsByClassName ) && assert(function( div ) {
 		div.innerHTML = "<div class='a'></div><div class='a i'></div>";
 
-		// Support: Safari<4
+		// SupportMessage: Safari<4
 		// Catch class over-caching
 		div.firstChild.className = "i";
-		// Support: Opera<10
+		// SupportMessage: Opera<10
 		// Catch gEBCN failure to find non-leading classes
 		return div.getElementsByClassName("i").length === 2;
 	});
 
-	// Support: IE<10
+	// SupportMessage: IE<10
 	// Check if getElementById returns elements by name
 	// The broken getElementById methods don't pick up programatically-set names,
 	// so use a roundabout getElementsByName test
@@ -1137,7 +1137,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			};
 		};
 	} else {
-		// Support: IE6/7
+		// SupportMessage: IE6/7
 		// getElementById is not reliable as a find shortcut
 		delete Expr.find["ID"];
 
@@ -1209,13 +1209,13 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// http://bugs.jquery.com/ticket/12359
 			div.innerHTML = "<select t=''><option selected=''></option></select>";
 
-			// Support: IE8, Opera 10-12
+			// SupportMessage: IE8, Opera 10-12
 			// Nothing should be selected when empty strings follow ^= or $= or *=
 			if ( div.querySelectorAll("[t^='']").length ) {
 				rbuggyQSA.push( "[*^$]=" + whitespace + "*(?:''|\"\")" );
 			}
 
-			// Support: IE8
+			// SupportMessage: IE8
 			// Boolean attributes and "value" are not treated correctly
 			if ( !div.querySelectorAll("[selected]").length ) {
 				rbuggyQSA.push( "\\[" + whitespace + "*(?:value|" + booleans + ")" );
@@ -1230,13 +1230,13 @@ setDocument = Sizzle.setDocument = function( node ) {
 		});
 
 		assert(function( div ) {
-			// Support: Windows 8 Native Apps
+			// SupportMessage: Windows 8 Native Apps
 			// The type and name attributes are restricted during .innerHTML assignment
 			var input = doc.createElement("input");
 			input.setAttribute( "type", "hidden" );
 			div.appendChild( input ).setAttribute( "name", "D" );
 
-			// Support: IE8
+			// SupportMessage: IE8
 			// Enforce case-sensitivity of name attribute
 			if ( div.querySelectorAll("[name=d]").length ) {
 				rbuggyQSA.push( "name" + whitespace + "*[*^$|!~]?=" );
@@ -1953,7 +1953,7 @@ Expr = Sizzle.selectors = {
 			return elem.nodeName.toLowerCase() === "input" &&
 				elem.type === "text" &&
 
-				// Support: IE<8
+				// SupportMessage: IE<8
 				// New HTML5 attribute values (e.g., "search") appear with elem.type === "text"
 				( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text" );
 		},
@@ -2355,7 +2355,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 
 			// Add elements passing elementMatchers directly to results
 			// Keep `i` a string if there are no elements so `matchedCount` will be "00" below
-			// Support: IE<9, Safari
+			// SupportMessage: IE<9, Safari
 			// Tolerate NodeList properties (IE: "length"; Safari: <number>) matching elements by id
 			for ( ; i !== len && (elem = elems[i]) != null; i++ ) {
 				if ( byElement && elem ) {
@@ -2537,21 +2537,21 @@ function select( selector, context, results, seed ) {
 // Sort stability
 support.sortStable = expando.split("").sort( sortOrder ).join("") === expando;
 
-// Support: Chrome<14
+// SupportMessage: Chrome<14
 // Always assume duplicates if they aren't passed to the comparison function
 support.detectDuplicates = !!hasDuplicate;
 
 // Initialize against the default document
 setDocument();
 
-// Support: Webkit<537.32 - Safari 6.0.3/Chrome 25 (fixed in Chrome 27)
+// SupportMessage: Webkit<537.32 - Safari 6.0.3/Chrome 25 (fixed in Chrome 27)
 // Detached nodes confoundingly follow *each other*
 support.sortDetached = assert(function( div1 ) {
 	// Should return 1, but returns 4 (following)
 	return div1.compareDocumentPosition( document.createElement("div") ) & 1;
 });
 
-// Support: IE<8
+// SupportMessage: IE<8
 // Prevent attribute/property "interpolation"
 // http://msdn.microsoft.com/en-us/library/ms536429%28VS.85%29.aspx
 if ( !assert(function( div ) {
@@ -2565,7 +2565,7 @@ if ( !assert(function( div ) {
 	});
 }
 
-// Support: IE<9
+// SupportMessage: IE<9
 // Use defaultValue in place of getAttribute("value")
 if ( !support.attributes || !assert(function( div ) {
 	div.innerHTML = "<input/>";
@@ -2579,7 +2579,7 @@ if ( !support.attributes || !assert(function( div ) {
 	});
 }
 
-// Support: IE<9
+// SupportMessage: IE<9
 // Use getAttributeNode to fetch booleans when getAttribute lies
 if ( !assert(function( div ) {
 	return div.getAttribute("disabled") == null;
@@ -3520,7 +3520,7 @@ var strundefined = typeof undefined;
 
 
 
-// Support: IE<9
+// SupportMessage: IE<9
 // Iteration over object's inherited properties before its own
 var i;
 for ( i in jQuery( support ) ) {
@@ -3552,7 +3552,7 @@ jQuery(function() {
 	body.appendChild( container ).appendChild( div );
 
 	if ( typeof div.style.zoom !== strundefined ) {
-		// Support: IE<8
+		// SupportMessage: IE<8
 		// Check if natively block-level elements act like inline-block
 		// elements when setting their display to 'inline' and giving
 		// them layout
@@ -3561,7 +3561,7 @@ jQuery(function() {
 		if ( (support.inlineBlockNeedsLayout = ( div.offsetWidth === 3 )) ) {
 			// Prevent IE 6 from affecting layout for positioned elements #11048
 			// Prevent IE from shrinking the body in IE 7 mode #12869
-			// Support: IE<8
+			// SupportMessage: IE<8
 			body.style.zoom = 1;
 		}
 	}
@@ -3580,7 +3580,7 @@ jQuery(function() {
 
 	// Execute the test only if not already executed in another module.
 	if (support.deleteExpando == null) {
-		// Support: IE<9
+		// SupportMessage: IE<9
 		support.deleteExpando = true;
 		try {
 			delete div.test;
@@ -3774,7 +3774,7 @@ function internalRemoveData( elem, name, pvt ) {
 
 		if ( thisCache ) {
 
-			// Support array or space separated string names for data keys
+			// SupportMessage array or space separated string names for data keys
 			if ( !jQuery.isArray( name ) ) {
 
 				// try the string as a key before any manipulation
@@ -4169,7 +4169,7 @@ var rcheckableType = (/^(?:checkbox|radio)$/i);
 	support.appendChecked = input.checked;
 
 	// Make sure textarea (and checkbox) defaultValue is properly cloned
-	// Support: IE6-IE11+
+	// SupportMessage: IE6-IE11+
 	div.innerHTML = "<textarea>x</textarea>";
 	support.noCloneChecked = !!div.cloneNode( true ).lastChild.defaultValue;
 
@@ -4177,11 +4177,11 @@ var rcheckableType = (/^(?:checkbox|radio)$/i);
 	fragment.appendChild( div );
 	div.innerHTML = "<input type='radio' checked='checked' name='t'/>";
 
-	// Support: Safari 5.1, iOS 5.1, Android 4.x, Android 2.3
+	// SupportMessage: Safari 5.1, iOS 5.1, Android 4.x, Android 2.3
 	// old WebKit doesn't clone checked state correctly in fragments
 	support.checkClone = div.cloneNode( true ).cloneNode( true ).lastChild.checked;
 
-	// Support: IE<9
+	// SupportMessage: IE<9
 	// Opera does not clone events (and typeof div.attachEvent === undefined).
 	// IE9-10 clones events bound via attachEvent, but they don't trigger with .click()
 	support.noCloneEvent = true;
@@ -4195,7 +4195,7 @@ var rcheckableType = (/^(?:checkbox|radio)$/i);
 
 	// Execute the test only if not already executed in another module.
 	if (support.deleteExpando == null) {
-		// Support: IE<9
+		// SupportMessage: IE<9
 		support.deleteExpando = true;
 		try {
 			delete div.test;
@@ -4213,7 +4213,7 @@ var rcheckableType = (/^(?:checkbox|radio)$/i);
 	var i, eventName,
 		div = document.createElement( "div" );
 
-	// Support: IE<9 (lack submit/change bubble), Firefox 23+ (lack focusin event)
+	// SupportMessage: IE<9 (lack submit/change bubble), Firefox 23+ (lack focusin event)
 	for ( i in { submit: true, change: true, focusin: true }) {
 		eventName = "on" + i;
 
@@ -4717,19 +4717,19 @@ jQuery.event = {
 			event[ prop ] = originalEvent[ prop ];
 		}
 
-		// Support: IE<9
+		// SupportMessage: IE<9
 		// Fix target property (#1925)
 		if ( !event.target ) {
 			event.target = originalEvent.srcElement || document;
 		}
 
-		// Support: Chrome 23+, Safari?
+		// SupportMessage: Chrome 23+, Safari?
 		// Target should not be a text node (#504, #13143)
 		if ( event.target.nodeType === 3 ) {
 			event.target = event.target.parentNode;
 		}
 
-		// Support: IE<9
+		// SupportMessage: IE<9
 		// For mouse/key events, metaKey==false if it's undefined (#3368, #11328)
 		event.metaKey = !!event.metaKey;
 
@@ -4799,7 +4799,7 @@ jQuery.event = {
 						this.focus();
 						return false;
 					} catch ( e ) {
-						// Support: IE<9
+						// SupportMessage: IE<9
 						// If we error on focus to hidden element (#1486, #12518),
 						// let .trigger() run the handlers
 					}
@@ -4902,9 +4902,9 @@ jQuery.Event = function( src, props ) {
 		// by a handler lower down the tree; reflect the correct value.
 		this.isDefaultPrevented = src.defaultPrevented ||
 				src.defaultPrevented === undefined && (
-				// Support: IE < 9
+				// SupportMessage: IE < 9
 				src.returnValue === false ||
-				// Support: Android < 4.0
+				// SupportMessage: Android < 4.0
 				src.getPreventDefault && src.getPreventDefault() ) ?
 			returnTrue :
 			returnFalse;
@@ -4945,7 +4945,7 @@ jQuery.Event.prototype = {
 		if ( e.preventDefault ) {
 			e.preventDefault();
 
-		// Support: IE
+		// SupportMessage: IE
 		// Otherwise set the returnValue property of the original event to false
 		} else {
 			e.returnValue = false;
@@ -4963,7 +4963,7 @@ jQuery.Event.prototype = {
 			e.stopPropagation();
 		}
 
-		// Support: IE
+		// SupportMessage: IE
 		// Set the cancelBubble property of the original event to true
 		e.cancelBubble = true;
 	},
@@ -5325,7 +5325,7 @@ function fixDefaultChecked( elem ) {
 	}
 }
 
-// Support: IE<8
+// SupportMessage: IE<8
 // Manipulating tables requires a tbody
 function manipulationTarget( elem, content ) {
 	return jQuery.nodeName( elem, "table" ) &&
@@ -5772,7 +5772,7 @@ jQuery.fn.extend({
 			}
 
 			// If this is a select, ensure that it displays empty (#12336)
-			// Support: IE<9
+			// SupportMessage: IE<9
 			if ( elem.options && jQuery.nodeName( elem, "select" ) ) {
 				elem.options.length = 0;
 			}
@@ -6016,7 +6016,7 @@ function defaultDisplay( nodeName ) {
 			// Always write a new HTML skeleton so Webkit and Firefox don't choke on reuse
 			doc = ( iframe[ 0 ].contentWindow || iframe[ 0 ].contentDocument ).document;
 
-			// Support: IE
+			// SupportMessage: IE
 			doc.write();
 			doc.close();
 
@@ -6081,7 +6081,7 @@ function defaultDisplay( nodeName ) {
 			shrinkWrapBlocksVal = false;
 
 			if ( typeof div.style.zoom !== strundefined ) {
-				// Support: IE6
+				// SupportMessage: IE6
 				// Check if elements with layout shrink-wrap their children
 				div.style.cssText = divReset + ";width:1px;padding:1px;zoom:1";
 				div.innerHTML = "<div></div>";
@@ -6150,7 +6150,7 @@ if ( window.getComputedStyle ) {
 			}
 		}
 
-		// Support: IE
+		// SupportMessage: IE
 		// IE returns zIndex value as an integer.
 		return ret === undefined ?
 			ret :
@@ -6202,7 +6202,7 @@ if ( window.getComputedStyle ) {
 			}
 		}
 
-		// Support: IE
+		// SupportMessage: IE
 		// IE returns zIndex value as an integer.
 		return ret === undefined ?
 			ret :
@@ -6296,7 +6296,7 @@ function addGetHookIf( conditionFn, hookFn ) {
 
 			body.appendChild( container ).appendChild( div );
 
-			// Support: IE8
+			// SupportMessage: IE8
 			// Check if table cells still have offsetWidth/Height when they are set
 			// to display:none and there are still other visible table cells in a
 			// table row; if so, offsetWidth/Height are not reliable for use when
@@ -6311,7 +6311,7 @@ function addGetHookIf( conditionFn, hookFn ) {
 			tds[ 0 ].style.display = "";
 			tds[ 1 ].style.display = "none";
 
-			// Support: IE8
+			// SupportMessage: IE8
 			// Check if empty table cells still have offsetWidth/Height
 			reliableHiddenOffsetsVal = isSupported && ( tds[ 0 ].offsetHeight === 0 );
 
@@ -6719,10 +6719,10 @@ jQuery.extend({
 			// If a hook was provided, use that value, otherwise just set the specified value
 			if ( !hooks || !("set" in hooks) || (value = hooks.set( elem, value, extra )) !== undefined ) {
 
-				// Support: IE
+				// SupportMessage: IE
 				// Swallow errors from 'invalid' CSS values (#5509)
 				try {
-					// Support: Chrome, Safari
+					// SupportMessage: Chrome, Safari
 					// Setting style to blank string required to delete "style: x !important;"
 					style[ name ] = "";
 					style[ name ] = value;
@@ -7015,7 +7015,7 @@ Tween.propHooks = {
 	}
 };
 
-// Support: IE <=9
+// SupportMessage: IE <=9
 // Panic based approach to setting things on disconnected nodes
 
 Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
@@ -7731,7 +7731,7 @@ jQuery.fn.delay = function( time, type ) {
 	select.disabled = true;
 	support.optDisabled = !opt.disabled;
 
-	// Support: IE8 only
+	// SupportMessage: IE8 only
 	// Check if we can trust getAttribute("value")
 	input = document.createElement( "input" );
 	input.setAttribute( "value", "" );
@@ -7869,7 +7869,7 @@ jQuery.extend({
 
 					if ( jQuery.inArray( jQuery.valHooks.option.get( option ), values ) >= 0 ) {
 
-						// Support: IE6
+						// SupportMessage: IE6
 						// When new option element is added to select box we need to
 						// force reflow of newly added node in order to workaround delay
 						// of initialization properties
@@ -7909,7 +7909,7 @@ jQuery.each([ "radio", "checkbox" ], function() {
 	};
 	if ( !support.checkOn ) {
 		jQuery.valHooks[ this ].get = function( elem ) {
-			// Support: Webkit
+			// SupportMessage: Webkit
 			// "" is returned instead of "on" if a value isn't specified
 			return elem.getAttribute("value") === null ? "on" : elem.value;
 		};
@@ -8000,7 +8000,7 @@ jQuery.extend({
 					// Set corresponding property to false
 					if ( getSetInput && getSetAttribute || !ruseDefault.test( name ) ) {
 						elem[ propName ] = false;
-					// Support: IE<9
+					// SupportMessage: IE<9
 					// Also clear defaultChecked/defaultSelected (if appropriate)
 					} else {
 						elem[ jQuery.camelCase( "default-" + name ) ] =
@@ -8268,7 +8268,7 @@ if ( !support.hrefNormalized ) {
 	});
 }
 
-// Support: Safari, IE9+
+// SupportMessage: Safari, IE9+
 // mis-reports the default selected property of an option
 // Accessing the parent's selectedIndex property fixes it
 if ( !support.optSelected ) {
@@ -8512,7 +8512,7 @@ var rvalidtokens = /(,)|(\[|{)|(}|])|"(?:[^"\\\r\n]|\\["\\\/bfnrt]|\\u[\da-fA-F]
 jQuery.parseJSON = function( data ) {
 	// Attempt to parse using the native JSON parser first
 	if ( window.JSON && window.JSON.parse ) {
-		// Support: Android 2.3
+		// SupportMessage: Android 2.3
 		// Workaround failure to string-cast null input
 		return window.JSON.parse( data + "" );
 	}
@@ -9453,7 +9453,7 @@ jQuery.fn.extend({
 
 
 jQuery.expr.filters.hidden = function( elem ) {
-	// Support: Opera <= 12.12
+	// SupportMessage: Opera <= 12.12
 	// Opera reports offsetWidths and offsetHeights less than zero on some elements
 	return elem.offsetWidth <= 0 && elem.offsetHeight <= 0 ||
 		(!support.reliableHiddenOffsets() &&
@@ -9571,13 +9571,13 @@ jQuery.fn.extend({
 // Create the request object
 // (This is still attached to ajaxSettings for backward compatibility)
 jQuery.ajaxSettings.xhr = window.ActiveXObject !== undefined ?
-	// Support: IE6+
+	// SupportMessage: IE6+
 	function() {
 
 		// XHR cannot access local files, always use ActiveX for that case
 		return !this.isLocal &&
 
-			// Support: IE7-8
+			// SupportMessage: IE7-8
 			// oldIE XHR does not support non-RFC2616 methods (#13240)
 			// See http://msdn.microsoft.com/en-us/library/ie/ms536648(v=vs.85).aspx
 			// and http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9
@@ -9594,7 +9594,7 @@ var xhrId = 0,
 	xhrCallbacks = {},
 	xhrSupported = jQuery.ajaxSettings.xhr();
 
-// Support: IE<10
+// SupportMessage: IE<10
 // Open requests must be manually aborted on unload (#5280)
 if ( window.ActiveXObject ) {
 	jQuery( window ).on( "unload", function() {
@@ -9649,7 +9649,7 @@ if ( xhrSupported ) {
 
 					// Set headers
 					for ( i in headers ) {
-						// Support: IE<9
+						// SupportMessage: IE<9
 						// IE's ActiveXObject throws a 'Type Mismatch' exception when setting
 						// request header to a null-value.
 						//
@@ -9685,7 +9685,7 @@ if ( xhrSupported ) {
 								responses = {};
 								status = xhr.status;
 
-								// Support: IE<10
+								// SupportMessage: IE<10
 								// Accessing binary-data responseText throws an exception
 								// (#11426)
 								if ( typeof xhr.responseText === "string" ) {

@@ -9,7 +9,7 @@ namespace Magento\Setup\Fixtures;
 /**
  * Fixture for generating cart price rules
  *
- * Support the following format:
+ * SupportMessage the following format:
  * <!-- Number of cart price rules -->
  * <cart_price_rules>{int}</cart_price_rules>
  *

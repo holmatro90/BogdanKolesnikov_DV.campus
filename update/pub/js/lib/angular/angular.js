@@ -10578,7 +10578,7 @@
             if (this.peekToken().text !== ']') {
                 do {
                     if (this.peek(']')) {
-                        // Support trailing commas per ES5.1.
+                        // SupportMessage trailing commas per ES5.1.
                         break;
                     }
                     var elementFn = this.expression();
@@ -10608,7 +10608,7 @@
             if (this.peekToken().text !== '}') {
                 do {
                     if (this.peek('}')) {
-                        // Support trailing commas per ES5.1.
+                        // SupportMessage trailing commas per ES5.1.
                         break;
                     }
                     var token = this.expect(),
