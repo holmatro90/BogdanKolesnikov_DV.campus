@@ -1,6 +1,6 @@
 <?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
 <div>
-    <?php $lastMessages = $block->getLastMessages('chat_hash') ?>
+    <?php $lastMessages = $block->getLastMessages('test_chat_hash') ?>
     <form class="form"
           action="javascript:void(0);"
           id="bogdank-support-chat-form"
@@ -11,13 +11,13 @@
           onsubmit="return false;"
           style="display: none;"
     >
-                <?php /** @var \Bogdank\SupportChat\Block\MessageList $block */ ?>
+        <?php /** @var \Bogdank\SupportChat\Block\MessageList $block */ ?>
         <div>
             <ul id="chat-messages">
                 <?php /** @var \Bogdank\SupportChat\Model\SupportMessage $supportMessage */
-                foreach ($lastMessages as $message) : ?>
+                foreach ($lastMessages as $supportMessage) : ?>
                     <li class="message-item <?= $block->escapeHtmlAttr($supportMessage->getUserType()) ?>">
-                        <p class="customer-name"><?= $block->escapeHtml($supportMessage->getUserName()) ?><?= $block->escapeHtml($supportMessage->getCreatedAt()) ?></p>
+                        <p class="customer-name"><?= $block->escapeHtml($supportMessage->getUserName()) ?> <?= $block->escapeHtml($supportMessage->getCreatedAt()) ?></p>
                         <p class="customer-message-body"><?= $block->escapeHtml($supportMessage->getMessage()) ?></p>
                     </li>
                 <?php endforeach; ?>

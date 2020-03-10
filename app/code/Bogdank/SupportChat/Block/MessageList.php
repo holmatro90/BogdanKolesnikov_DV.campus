@@ -26,11 +26,11 @@ class MessageList extends \Magento\Framework\View\Element\Template
      * @param string $ChatHash
      * @return Collection
      */
-    public function getLastMessages(string $ChatHash): Collection
+    public function getLastMessages(string $chatHash): Collection
     {
         /** @var Collection $messageCollection */
         $messageCollection = $this->messageCollectionFactory->create();
-        return $messageCollection->addFieldToFilter('chat_hash', $ChatHash)
+        return $messageCollection->addFieldToFilter('chat_hash', $chatHash)
         ->setOrder('created_at', $messageCollection::SORT_ORDER_DESC)
         ->setPageSize(10);
     }
