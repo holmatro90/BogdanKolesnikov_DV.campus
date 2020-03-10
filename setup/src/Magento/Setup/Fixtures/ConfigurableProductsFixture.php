@@ -21,7 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Generate configurable products based on profile configuration
  * Generated configurable options are not displayed individually in catalog
- * Support one of two formats:
+ * SupportMessage one of two formats:
  * 1. Distributed per Default and pre-defined attribute sets (@see setup/performance-toolkit/config/attributeSets.xml)
  * <configurable_products>{products amount}</configurable_products>
  *

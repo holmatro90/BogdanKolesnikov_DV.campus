@@ -9,7 +9,7 @@ namespace Magento\Setup\Fixtures;
 /**
  * Fixture for generating coupon codes
  *
- * Support the following format:
+ * SupportMessage the following format:
  * <!-- Number of coupon codes -->
  * <coupon_codes>{int}</coupon_codes>
  *

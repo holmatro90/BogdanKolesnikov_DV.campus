@@ -316,8 +316,8 @@
         /**
          * Create an inert document that contains the dirty HTML that needs sanitizing
          * Depending upon browser support we use one of three strategies for doing this.
-         * Support: Safari 10.x -> XHR strategy
-         * Support: Firefox -> DomParser strategy
+         * SupportMessage: Safari 10.x -> XHR strategy
+         * SupportMessage: Firefox -> DomParser strategy
          */
         var getInertBodyElement /* function(html: string): HTMLBodyElement */ = (function(window, document) {
             var inertDocument;
@@ -376,7 +376,7 @@
             function getInertBodyElement_InertDocument(html) {
                 inertBodyElement.innerHTML = html;
 
-                // Support: IE 9-11 only
+                // SupportMessage: IE 9-11 only
                 // strip custom-namespaced attributes on IE<=11
                 if (document.documentMode) {
                     stripCustomNsAttrs(inertBodyElement);

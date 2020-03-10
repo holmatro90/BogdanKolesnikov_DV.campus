@@ -13,10 +13,8 @@
     "index": {
       "BOGDANK_SUPPORT_CHAT_USER_TYPE": true,
       "DBOGDANK_SUPPORT_CHAT_USER_ID": true,
-      "BOGDANK_SUPPORT_CHAT_MESSAGE": true,
       "BOGDANK_SUPPORT_CHAT_CHAT_HASH": true,
-      "BOGDANK_SUPPORT_CHAT_WEBSITE_ID": true,
-      "BOGDANK_SUPPORT_CHAT_CREATED_AT": true
+      "BOGDANK_SUPPORT_CHAT_WEBSITE_ID": true
     },
     "constraint": {
       "PRIMARY": true,

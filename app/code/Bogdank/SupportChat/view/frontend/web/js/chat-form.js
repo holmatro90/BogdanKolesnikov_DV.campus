@@ -86,7 +86,7 @@ define([
             var today = new Date();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
             var $messageList = $('#chat-messages');
-            var $messageItem = $('<li>').addClass('message-item customer-message');
+            var $messageItem = $('<li>').addClass('message-item customer');
             var $customerName = $('<p>').addClass('customer-name').text(messageData.customerName + ' ' + time);
             var $customerMessage = $('<p>').addClass('customer-message-body').text(messageData.message);
             var $messageItemAdmin = $('<li>').addClass('message-item admin-message');

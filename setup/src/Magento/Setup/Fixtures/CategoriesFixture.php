@@ -13,7 +13,7 @@ use Magento\Store\Model\StoreManager;
 
 /**
  * Generate categories.
- * Support the following format:
+ * SupportMessage the following format:
  * <categories>{amount of categories}</categories>
  * <categories_nesting_level>{Nesting level of categories}</categories_nesting_level>
  *

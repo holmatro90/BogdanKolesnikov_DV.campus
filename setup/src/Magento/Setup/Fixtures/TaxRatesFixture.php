@@ -9,7 +9,7 @@ namespace Magento\Setup\Fixtures;
 /**
  * Fixture for generating tax rates fixture
  *
- * Support the following format:
+ * SupportMessage the following format:
  * <!-- Accepts name of csv file with tax rates (<path to magento folder>/setup/src/Magento/Setup/Fixtures/_files) -->
  * <tax_rates_file>{csv file name}</tax_rates_file>
  *

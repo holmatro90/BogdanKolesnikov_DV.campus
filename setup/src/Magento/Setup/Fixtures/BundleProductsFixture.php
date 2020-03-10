@@ -13,7 +13,7 @@ use Magento\Catalog\Model\Product\Visibility;
 /**
  * Generate bundle products based on profile configuration
  * Generated bundle selections are not displayed individually in catalog
- * Support the following format:
+ * SupportMessage the following format:
  * <bundle_products>{products amount}</bundle_products>
  * <bundle_products_options>{bundle product options amount}</bundle_products_options>
  * <bundle_products_variation>{amount of simple products per each option}</bundle_products_variation>

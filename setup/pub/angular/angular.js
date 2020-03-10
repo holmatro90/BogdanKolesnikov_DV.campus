@@ -321,7 +321,7 @@
         angularModule,
         uid               = 0;
 
-// Support: IE 9-11 only
+// SupportMessage: IE 9-11 only
     /**
      * documentMode is an IE-only property
      * http://msdn.microsoft.com/en-us/library/ie/cc196988(v=vs.85).aspx
@@ -346,7 +346,7 @@
         //   via the forEach method when constructing the jqLite object in the first place
         if (isArray(obj) || isString(obj) || (jqLite && obj instanceof jqLite)) return true;
 
-        // Support: iOS 8.2 (not reproducible in simulator)
+        // SupportMessage: iOS 8.2 (not reproducible in simulator)
         // "length" in obj used to prevent JIT error (gh-11508)
         var length = 'length' in Object(obj) && obj.length;
 
@@ -1112,7 +1112,7 @@
                     return new source.constructor(copyElement(source.buffer), source.byteOffset, source.length);
 
                 case '[object ArrayBuffer]':
-                    // Support: IE10
+                    // SupportMessage: IE10
                     if (!source.slice) {
                         // If we're in this case we know the environment supports ArrayBuffer
                         /* eslint-disable no-undef */
@@ -1473,7 +1473,7 @@
 
     var ALL_COLONS = /:/g;
     function timezoneToOffset(timezone, fallback) {
-        // Support: IE 9-11 only, Edge 13-15+
+        // SupportMessage: IE 9-11 only, Edge 13-15+
         // IE/Edge do not "understand" colon (`:`) in timezone
         timezone = timezone.replace(ALL_COLONS, '');
         var requestedTimezoneOffset = Date.parse('Jan 01, 1970 00:00:00 ' + timezone) / 60000;
@@ -1638,7 +1638,7 @@
         var script = document.currentScript;
 
         if (!script) {
-            // Support: IE 9-11 only
+            // SupportMessage: IE 9-11 only
             // IE does not have `document.currentScript`
             return true;
         }
@@ -4132,7 +4132,7 @@
             this._keys[idx] = key;
             this._values[idx] = value;
 
-            // Support: IE11
+            // SupportMessage: IE11
             // Do not `return this` to simulate the partial IE11 implementation
         },
         delete: function(key) {
@@ -5075,14 +5075,14 @@
             }
 
             function isClass(func) {
-                // Support: IE 9-11 only
+                // SupportMessage: IE 9-11 only
                 // IE 9-11 do not support classes and IE9 leaks with the code below.
                 if (msie || typeof func !== 'function') {
                     return false;
                 }
                 var result = func.$$ngIsClass;
                 if (!isBoolean(result)) {
-                    // Support: Edge 12-13 only
+                    // SupportMessage: Edge 12-13 only
                     // See: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/6156135/
                     result = func.$$ngIsClass = /^(?:class\b|constructor\()/.test(stringifyFn(func));
                 }
@@ -9156,7 +9156,7 @@
                     for (var i = 0; i < nodeList.length; i++) {
                         attrs = new Attributes();
 
-                        // Support: IE 11 only
+                        // SupportMessage: IE 11 only
                         // Workaround for #11781 and #14924
                         if (msie === 11) {
                             mergeConsecutiveTextNodes(nodeList, i, notLiveList);
@@ -9645,7 +9645,7 @@
                                 compileNode = $compileNode[0];
                                 replaceWith(jqCollection, sliceArgs($template), compileNode);
 
-                                // Support: Chrome < 50
+                                // SupportMessage: Chrome < 50
                                 // https://github.com/angular/angular.js/issues/14041
 
                                 // In the versions of V8 prior to Chrome 50, the document fragment that is created
@@ -14708,7 +14708,7 @@
         };
 
         this.$get = ['$window', function($window) {
-            // Support: IE 9-11, Edge 12-14+
+            // SupportMessage: IE 9-11, Edge 12-14+
             // IE/Edge display errors in such a way that it requires the user to click in 4 places
             // to see the stack trace. There is no way to feature-detect it so there's a chance
             // of the user agent sniffing to go wrong but since it's only about logging, this shouldn't
@@ -14794,7 +14794,7 @@
                     forEach(arguments, function(arg) {
                         args.push(formatError(arg));
                     });
-                    // Support: IE 9 only
+                    // SupportMessage: IE 9 only
                     // console methods don't inherit from Function.prototype in IE 9 so we can't
                     // call `logFn.apply(console, args)` directly.
                     return Function.prototype.apply.call(logFn, console, args);
@@ -15302,7 +15302,7 @@
             if (this.peekToken().text !== ']') {
                 do {
                     if (this.peek(']')) {
-                        // Support trailing commas per ES5.1.
+                        // SupportMessage trailing commas per ES5.1.
                         break;
                     }
                     elements.push(this.expression());
@@ -15318,7 +15318,7 @@
             if (this.peekToken().text !== '}') {
                 do {
                     if (this.peek('}')) {
-                        // Support trailing commas per ES5.1.
+                        // SupportMessage trailing commas per ES5.1.
                         break;
                     }
                     property = {type: AST.Property, kind: 'init'};
@@ -17632,7 +17632,7 @@
 
                 function cleanUpScope($scope) {
 
-                    // Support: IE 9 only
+                    // SupportMessage: IE 9 only
                     if (msie === 9) {
                         // There is a memory leak in IE9 if all child scopes are not disconnected
                         // completely when a scope is destroyed. So this code will recurse up through
@@ -19850,7 +19850,7 @@
 
         this.$get = ['$parse', '$sceDelegate', function(
             $parse,   $sceDelegate) {
-            // Support: IE 9-11 only
+            // SupportMessage: IE 9-11 only
             // Prereq: Ensure that we're not running in IE<11 quirks mode.  In that mode, IE < 11 allow
             // the "expression(javascript expression)" syntax which is insecure.
             if (enabled && msie < 8) {
@@ -20231,7 +20231,7 @@
                 animations = false;
 
             if (bodyStyle) {
-                // Support: Android <5, Blackberry Browser 10, default Chrome in Android 4.4.x
+                // SupportMessage: Android <5, Blackberry Browser 10, default Chrome in Android 4.4.x
                 // Mentioned browsers need a -webkit- prefix for transitions & animations.
                 transitions = !!('transition' in bodyStyle || 'webkitTransition' in bodyStyle);
                 animations = !!('animation' in bodyStyle || 'webkitAnimation' in bodyStyle);
@@ -20249,7 +20249,7 @@
                 // We are purposefully using `!(android < 4)` to cover the case when `android` is undefined
                 history: !!(hasHistoryPushState && !(android < 4) && !boxee),
                 hasEvent: function(event) {
-                    // Support: IE 9-11 only
+                    // SupportMessage: IE 9-11 only
                     // IE9 implements 'input' event it's so fubared that we rather pretend that it doesn't have
                     // it. In particular the event is not fired when backspace or delete key are pressed or
                     // when cut operation is performed.
@@ -20667,7 +20667,7 @@
     function urlResolve(url) {
         var href = url;
 
-        // Support: IE 9-11 only
+        // SupportMessage: IE 9-11 only
         if (msie) {
             // Normalize before parse.  Refer Implementation Notes on why this is
             // done in two steps on IE.
@@ -23291,7 +23291,7 @@
 
                         attr.$set(name, value);
 
-                        // Support: IE 9-11 only
+                        // SupportMessage: IE 9-11 only
                         // On IE, if "ng:src" directive declaration is used and "src" attribute doesn't exist
                         // then calling element.setAttribute('src', 'foo') doesn't do anything, so we need
                         // to set the property as well to achieve the desired effect.
@@ -26129,7 +26129,7 @@
          *  makes it possible to use ngValue as a sort of one-way bind.
          */
         function updateElementValue(element, attr, value) {
-            // Support: IE9 only
+            // SupportMessage: IE9 only
             // In IE9 values are converted to string (e.g. `input.value = null` results in `input.value === 'null'`).
             var propValue = isDefined(value) ? value : (msie === 9) ? '' : null;
             element.prop('value', propValue);
@@ -30750,7 +30750,7 @@
         }
 
 
-        // Support: IE 9 only
+        // SupportMessage: IE 9 only
         // We can't just jqLite('<option>') since jqLite is not smart enough
         // to create it in <select> and IE barfs otherwise.
         var optionTemplate = window.document.createElement('option'),
@@ -30959,7 +30959,7 @@
             function updateOptionElement(option, element) {
                 option.element = element;
                 element.disabled = option.disabled;
-                // Support: IE 11 only, Edge 12-13 only
+                // SupportMessage: IE 11 only, Edge 12-13 only
                 // NOTE: The label must be set before the value, otherwise IE 11 & Edge create unresponsive
                 // selects in certain circumstances when multiple selects are next to each other and display
                 // the option list in listbox style, i.e. the select is [multiple], or specifies a [size].
@@ -33079,7 +33079,7 @@
             // does not match any of the options. When it is rendered the value of the unknown
             // option is '? XXX ?' where XXX is the hashKey of the value that is not known.
             //
-            // Support: IE 9 only
+            // SupportMessage: IE 9 only
             // We can't just jqLite('<option>') since jqLite is not smart enough
             // to create it in <select> and IE barfs otherwise.
             self.unknownOption = jqLite(window.document.createElement('option'));
@@ -33727,7 +33727,7 @@
                             includes(value, selectCtrl.selectValueMap[option.value]));
                         var currentlySelected = option.selected;
 
-                        // Support: IE 9-11 only, Edge 12-15+
+                        // SupportMessage: IE 9-11 only, Edge 12-15+
                         // In IE and Edge adding options to the selection via shift+click/UP/DOWN
                         // will de-select already selected options if "selected" on those options was set
                         // more than once (i.e. when the options were already selected)
