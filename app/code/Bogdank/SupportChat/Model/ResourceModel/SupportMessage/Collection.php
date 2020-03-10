@@ -7,6 +7,9 @@ namespace Bogdank\SupportChat\Model\ResourceModel\SupportMessage;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
+    protected $_idFieldName = 'message_id';
+    protected $_eventPrefix = 'bogdank_supportchat_supportmessage_colection';
+    protected $_eventObject = 'supportmessage_colection';
     /**
      * @inheritDoc
      */
@@ -15,7 +18,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         parent::_construct();
         $this->_init(
             \Bogdank\SupportChat\Model\SupportMessage::class,
-            \Klarna\Kp\Model\ResourceModel\Quote::class
+            \Bogdank\SupportChat\Model\ResourceModel\SupportMessage::class
         );
     }
 }

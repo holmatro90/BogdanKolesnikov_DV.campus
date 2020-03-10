@@ -57,13 +57,13 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
             $request = $this->getRequest();
 
             if (!$request->getParam('message') || !$request->getParam('name')) {
-                throw new LocalizedException(__('NAme and message should not be empty'));
+                throw new LocalizedException(__('Name and message should not be empty'));
             }
 
             // @TODO: generate chat hash if not present in the customer session
             $chatHash = 'test_chat_hash';
             // @TODO: get user type
-            $userType = 'test_guest';
+            $userType = 'customer';
             /** @var SupportMessage $supportMessage */
             $supportMessage = $this->supportMessageFactory->create();
 
@@ -76,7 +76,6 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
                 ->setMessage($this->getRequest()->getParam('message'));
             $this->supportMessageResource->save($supportMessage);
 
-            $message = __('Saved!');
         } catch (\Exception $e) {
             $message = __('Your preferences can\'t be saved. Please, contact us if you see this message.');
         }
@@ -86,7 +85,6 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
         $response->setData([
             'customerName' => $this->getRequest()->getParam('name'),
             'message' => $this->getRequest()->getParam('message')
-//            'message' => $message
         ]);
 
         return $response;

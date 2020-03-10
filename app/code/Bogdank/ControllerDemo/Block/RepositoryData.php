@@ -1,6 +1,5 @@
 <?php
-declare (strict_types=1);
-
+declare(strict_types=1);
 
 namespace Bogdank\ControllerDemo\Block;
 
@@ -40,5 +39,4 @@ class RepositoryData extends \Magento\Framework\View\Element\Template
     {
         return $this->getRepository['githubRepository'];
     }
-
 }
