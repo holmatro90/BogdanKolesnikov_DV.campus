@@ -27,7 +27,7 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
     private $storeManager;
 
     /**
-     * @var \Magento\Framework\Data\Form\FormKey\Validator
+     * @var \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
      */
     private $formKeyValidator;
 
@@ -65,14 +65,11 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
         try {
             $request = $this->getRequest();
 
-            if (!$request->getParam('message') || !$request->getParam('name')) {
-                throw new LocalizedException(__('Name and message should not be empty'));
-            }
             if (!$this->formKeyValidator->validate($request) || $request->getParam('name')) {
-                throw new LocalizedException(__('Something went wrong.'));
+                throw new LocalizedException(__('Enter the Name and try again.'));
             }
             if (!$this->formKeyValidator->validate($request) || $request->getParam('message')) {
-                throw new LocalizedException(__('Something went wrong.'));
+                throw new LocalizedException(__('Enter the Message and try again'));
             }
 
             // @TODO: generate chat hash if not present in the customer session
