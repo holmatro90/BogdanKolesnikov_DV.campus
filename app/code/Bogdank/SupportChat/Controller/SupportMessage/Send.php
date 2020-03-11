@@ -45,7 +45,8 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\App\Action\Context $context
-    ) {
+    )
+    {
         parent::__construct($context);
         $this->supportMessageFactory = $supportMessageFactory;
         $this->supportMessageResource = $supportMessageResource;
@@ -63,8 +64,15 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
 
         try {
             $request = $this->getRequest();
+
             if (!$request->getParam('message') || !$request->getParam('name')) {
                 throw new LocalizedException(__('Name and message should not be empty'));
+            }
+            if (!$this->formKeyValidator->validate($request) || $request->getParam('name')) {
+                throw new LocalizedException(__('Something went wrong.'));
+            }
+            if (!$this->formKeyValidator->validate($request) || $request->getParam('message')) {
+                throw new LocalizedException(__('Something went wrong.'));
             }
 
             // @TODO: generate chat hash if not present in the customer session
@@ -78,8 +86,8 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
             $supportMessage->setUserId(1)
                 ->setChatHash($chatHash)
                 ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
-                 ->setUserName($this->getRequest()->getParam('name'))
-                 ->setUserType($userType)
+                ->setUserName($this->getRequest()->getParam('name'))
+                ->setUserType($userType)
                 ->setMessage($this->getRequest()->getParam('message'));
             $this->supportMessageResource->save($supportMessage);
 
