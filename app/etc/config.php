@@ -237,7 +237,7 @@ return [
         'Amazon_Core' => 1,
         'Amazon_Login' => 1,
         'Amazon_Payment' => 1,
-        'Bogdank_Bogdank_CMS' => 1,
+        'Bogdank_BogdankCms' => 1,
         'Bogdank_Catalog' => 1,
         'Bogdank_ControllerDemo' => 1,
         'Bogdank_LayoutDebug' => 1,

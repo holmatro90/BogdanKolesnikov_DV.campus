@@ -33,19 +33,27 @@ services:
     # Must add extra_hosts to be written to /etc/hosts - otherwise containerized application can not curl itself
     extra_hosts:
       - "bogdan-kolesnikov.local www.bogdan-kolesnikov.local:127.0.0.1"
-#    links:
-#      - memcached
-#      - redis
-#      - elasticsearch
+    links:
+      - redis
+    #    links:
+    #      - memcached
+    #      - elasticsearch
     external_links:
       - mysql57:mysql
-#    networks:
-#      - reverse-proxy
+    #    networks:
+    #      - reverse-proxy
     network_mode: bridge
     volumes:
       - .:/var/www/html
       - /misc/share/ssl:/certs
       - ./docker/virtual-host.conf:/etc/apache2/sites-enabled/virtual-host.conf
+
+  redis:
+    image: redis:latest
+    network_mode: bridge
+    labels:
+      - traefik.enable=false
+    restart: always
 
 #  redis:
 #    image: redis:latest

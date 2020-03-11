@@ -27,21 +27,29 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
     private $storeManager;
 
     /**
+     * @var \Magento\Framework\Data\Form\FormKey\Validator
+     */
+    private $formKeyValidator;
+
+    /**
      * Save constructor
      * @param \Bogdank\SupportChat\Model\SupportMessageFactory $supportMessageFactory
      * @param \Bogdank\SupportChat\Model\ResourceModel\SupportMessage $supportMessageResource
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Framework\App\Action\Context $context
+     * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
      */
     public function __construct(
         \Bogdank\SupportChat\Model\SupportMessageFactory $supportMessageFactory,
         \Bogdank\SupportChat\Model\ResourceModel\SupportMessage $supportMessageResource,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\App\Action\Context $context
     ) {
         parent::__construct($context);
         $this->supportMessageFactory = $supportMessageFactory;
         $this->supportMessageResource = $supportMessageResource;
+        $this->formKeyValidator = $formKeyValidator;
         $this->storeManager = $storeManager;
     }
 
@@ -55,7 +63,6 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
 
         try {
             $request = $this->getRequest();
-
             if (!$request->getParam('message') || !$request->getParam('name')) {
                 throw new LocalizedException(__('Name and message should not be empty'));
             }
