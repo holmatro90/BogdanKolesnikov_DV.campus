@@ -10,7 +10,7 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\ValidatorException;
 
 /**
- * Entity generator. SupportMessage generation for flat and eav tables
+ * Entity generator. Support generation for flat and eav tables
  */
 class EntityGenerator
 {

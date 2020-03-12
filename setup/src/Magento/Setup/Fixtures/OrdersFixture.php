@@ -14,7 +14,7 @@ use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
  *
  * Optionally generates inactive quotes for generated orders.
  *
- * SupportMessage the following format:
+ * Support the following format:
  * <!-- It is necessary to enable quotes for orders -->
  * <order_quotes_enable>{bool}</order_quotes_enable>
  *

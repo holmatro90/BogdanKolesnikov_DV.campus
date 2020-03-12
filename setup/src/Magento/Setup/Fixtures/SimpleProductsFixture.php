@@ -16,7 +16,7 @@ use Magento\Setup\Model\SearchTermDescriptionGeneratorFactory;
 
 /**
  * Generate simple products based on profile configuration
- * SupportMessage the following format:
+ * Support the following format:
  * <simple_products>{products amount}</simple_products>
  * Products will be distributed per Default and pre-defined
  * attribute sets (@see setup/performance-toolkit/config/attributeSets.xml)

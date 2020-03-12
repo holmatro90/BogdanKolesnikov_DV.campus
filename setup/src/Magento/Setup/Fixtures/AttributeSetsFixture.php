@@ -9,7 +9,7 @@ namespace Magento\Setup\Fixtures;
 /**
  * Fixture for Attribute Sets and Attributes based on the configuration
  *
- * SupportMessage the following format:
+ * Support the following format:
  * <!-- Number of product attribute sets -->
  * <product_attribute_sets>{int}</product_attribute_sets>
  *

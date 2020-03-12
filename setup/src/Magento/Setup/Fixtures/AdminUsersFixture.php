@@ -17,7 +17,7 @@ use Magento\User\Model\UserFactory;
 /**
  * Generate admin users
  *
- * SupportMessage the following format:
+ * Support the following format:
  * <!-- Number of admin users -->
  * <admin_users>{int}</admin_users>
  */
