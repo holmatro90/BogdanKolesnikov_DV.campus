@@ -8,8 +8,8 @@ namespace Bogdank\SupportChat\Model\ResourceModel\SupportMessage;
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
     protected $_idFieldName = 'message_id';
-    protected $_eventPrefix = 'bogdank_supportchat_supportmessage_colection';
-    protected $_eventObject = 'supportmessage_colection';
+    protected $_eventPrefix = 'bogdank_supportchat_supportmessage_collection';
+    protected $_eventObject = 'supportmessage_collection';
     /**
      * @inheritDoc
      */

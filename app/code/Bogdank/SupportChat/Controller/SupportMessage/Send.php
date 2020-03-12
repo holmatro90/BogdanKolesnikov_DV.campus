@@ -32,22 +32,29 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
     private $formKeyValidator;
 
     /**
+     * @var \Magento\Customer\Model\Session $customerSession
+     */
+    private $customerSession;
+
+    /**
      * Save constructor
      * @param \Bogdank\SupportChat\Model\SupportMessageFactory $supportMessageFactory
      * @param \Bogdank\SupportChat\Model\ResourceModel\SupportMessage $supportMessageResource
+     * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
+     * @param \Magento\Framework\App\Action\Context $context
      */
     public function __construct(
         \Bogdank\SupportChat\Model\SupportMessageFactory $supportMessageFactory,
         \Bogdank\SupportChat\Model\ResourceModel\SupportMessage $supportMessageResource,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
-        \Magento\Framework\App\Action\Context $context
-    )
-    {
+        \Magento\Framework\App\Action\Context $context,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
+    ) {
         parent::__construct($context);
+        $this->customerSession = $customerSession;
         $this->supportMessageFactory = $supportMessageFactory;
         $this->supportMessageResource = $supportMessageResource;
         $this->formKeyValidator = $formKeyValidator;
@@ -65,29 +72,22 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
         try {
             $request = $this->getRequest();
 
-            if (!$this->formKeyValidator->validate($request) || $request->getParam('name')) {
-                throw new LocalizedException(__('Enter the Name and try again.'));
+            if (!$this->formKeyValidator->validate($request)) {
+                throw new LocalizedException(__('Something get wrong'));
             }
-            if (!$this->formKeyValidator->validate($request) || $request->getParam('message')) {
-                throw new LocalizedException(__('Enter the Message and try again'));
-            }
-
             // @TODO: generate chat hash if not present in the customer session
             $chatHash = 'test_chat_hash';
             // @TODO: get user type
             $userType = 'customer';
             /** @var SupportMessage $supportMessage */
             $supportMessage = $this->supportMessageFactory->create();
-
-            //@TODO: get `customer_id` from the session
-            $supportMessage->setUserId(1)
+            $supportMessage->setUserId((int) $this->customerSession->getId())
                 ->setChatHash($chatHash)
                 ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
                 ->setUserName($this->getRequest()->getParam('name'))
                 ->setUserType($userType)
                 ->setMessage($this->getRequest()->getParam('message'));
             $this->supportMessageResource->save($supportMessage);
-
         } catch (\Exception $e) {
             $message = __('Your preferences can\'t be saved. Please, contact us if you see this message.');
         }
