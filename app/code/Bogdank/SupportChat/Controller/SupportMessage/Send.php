@@ -68,16 +68,6 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
         $this->storeManager = $storeManager;
         $this->userContext = $userContext;
     }
-//    public function getUserType(): ?string
-//    {
-//        if (!$this->userContext->getUserType()===4) {
-//            return 'guest';
-//        }
-//        if (!$this->userContext->getUserType()===3) {
-//            return 'customer';
-//        }
-//        return $this->getUserType();
-//    }
     /**
      * @inheritDoc
      */
@@ -103,7 +93,7 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
                 ->setChatHash($chatHash)
                 ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
                 ->setUserName($this->getRequest()->getParam('name'))
-                ->setUserType((string)$this->userContext->getUserType())
+                ->setUserType($userType)
                 ->setMessage($this->getRequest()->getParam('message'));
             $this->supportMessageResource->save($supportMessage);
         } catch (\Exception $e) {
