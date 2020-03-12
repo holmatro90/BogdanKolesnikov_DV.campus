@@ -37,9 +37,15 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
     private $customerSession;
 
     /**
+     * @var \Magento\Authorization\Model\UserContextInterface $userContext
+     */
+    private $userContext;
+
+    /**
      * Save constructor
      * @param \Bogdank\SupportChat\Model\SupportMessageFactory $supportMessageFactory
      * @param \Bogdank\SupportChat\Model\ResourceModel\SupportMessage $supportMessageResource
+     * @param \Magento\Authorization\Model\UserContextInterface $userContext
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
@@ -48,6 +54,7 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
     public function __construct(
         \Bogdank\SupportChat\Model\SupportMessageFactory $supportMessageFactory,
         \Bogdank\SupportChat\Model\ResourceModel\SupportMessage $supportMessageResource,
+        \Magento\Authorization\Model\UserContextInterface $userContext,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\App\Action\Context $context,
@@ -59,8 +66,18 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
         $this->supportMessageResource = $supportMessageResource;
         $this->formKeyValidator = $formKeyValidator;
         $this->storeManager = $storeManager;
+        $this->userContext = $userContext;
     }
-
+//    public function getUserType(): ?string
+//    {
+//        if (!$this->userContext->getUserType()===4) {
+//            return 'guest';
+//        }
+//        if (!$this->userContext->getUserType()===3) {
+//            return 'customer';
+//        }
+//        return $this->getUserType();
+//    }
     /**
      * @inheritDoc
      */
@@ -75,17 +92,18 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
             if (!$this->formKeyValidator->validate($request)) {
                 throw new LocalizedException(__('Something get wrong'));
             }
+
             // @TODO: generate chat hash if not present in the customer session
             $chatHash = 'test_chat_hash';
             // @TODO: get user type
             $userType = 'customer';
             /** @var SupportMessage $supportMessage */
             $supportMessage = $this->supportMessageFactory->create();
-            $supportMessage->setUserId((int) $this->customerSession->getId())
+            $supportMessage->setUserId((int)$this->customerSession->getId())
                 ->setChatHash($chatHash)
                 ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
                 ->setUserName($this->getRequest()->getParam('name'))
-                ->setUserType($userType)
+                ->setUserType((string)$this->userContext->getUserType())
                 ->setMessage($this->getRequest()->getParam('message'));
             $this->supportMessageResource->save($supportMessage);
         } catch (\Exception $e) {
