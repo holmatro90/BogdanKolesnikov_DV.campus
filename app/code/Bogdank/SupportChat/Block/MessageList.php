@@ -36,6 +36,20 @@ class MessageList extends \Magento\Framework\View\Element\Template
         $this->generateHash = $generateHash;
     }
 
+    /**
+     * @inheritDoc
+     */
+    protected function _construct(): void
+    {
+        parent::_construct();
+
+        $this->addData(
+            [
+                'cache_lifetime' => 86400
+            ]
+        );
+    }
+
     public function getChatHashCookie(): ?string
     {
         return $this->generateHash->getChatHashCookie();

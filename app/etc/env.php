@@ -46,7 +46,7 @@ return [
             'first_lifetime' => '600',
             'bot_first_lifetime' => '60',
             'bot_lifetime' => '7200',
-            'disable_locking' => '0',
+            'disable_locking' => '1',
             'min_lifetime' => '60',
             'max_lifetime' => '2592000'
         ]
@@ -64,13 +64,13 @@ return [
     'lock' => [
         'provider' => 'db',
         'config' => [
-            'prefix' => null
+            'prefix' => ''
         ]
     ],
     'cache_types' => [
         'config' => 1,
-        'layout' => 0,
-        'block_html' => 0,
+        'layout' => 1,
+        'block_html' => 1,
         'collections' => 1,
         'reflection' => 1,
         'db_ddl' => 1,
@@ -82,7 +82,8 @@ return [
         'full_page' => 0,
         'config_webservice' => 1,
         'translate' => 1,
-        'vertex' => 1
+        'vertex' => 1,
+        'google_product' => 1
     ],
     'install' => [
         'date' => 'Sun, 06 Oct 2019 16:50:05 +0000'
