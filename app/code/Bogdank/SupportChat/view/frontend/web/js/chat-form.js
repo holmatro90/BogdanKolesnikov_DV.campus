@@ -1,7 +1,8 @@
 define([
     'jquery',
+    'Magento_Customer/js/customer-data',
     'Magento_Ui/js/modal/modal'
-], function ($, modal) {
+], function ($, customerData, modal) {
     'use strict';
 
     $.widget('bogdankSupportChat.form', {
@@ -23,6 +24,11 @@ define([
             });
 
             $(this.element).on('submit.bogdank_SupportChat', $.proxy(this.saveChat, this));
+
+            // console.log(customerData.get('customer-message')());
+            // customerData.get('customer-message').subscribe(function (value) {
+            //     console.log(value);
+            // });
         },
         /**
          * @private
