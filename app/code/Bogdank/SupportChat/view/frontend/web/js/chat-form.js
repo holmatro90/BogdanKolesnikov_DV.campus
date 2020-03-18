@@ -25,10 +25,10 @@ define([
 
             $(this.element).on('submit.bogdank_SupportChat', $.proxy(this.saveChat, this));
 
-            // console.log(customerData.get('customer-message')());
-            // customerData.get('customer-message').subscribe(function (value) {
-            //     console.log(value);
-            // });
+            console.log(customerData.get('customer-message')());
+            customerData.get('customer-message').subscribe(function (value) {
+                console.log(value);
+            });
         },
         /**
          * @private

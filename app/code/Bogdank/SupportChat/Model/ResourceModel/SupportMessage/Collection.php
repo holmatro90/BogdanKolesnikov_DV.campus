@@ -11,11 +11,19 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     protected $_eventPrefix = 'bogdank_supportchat_supportmessage_collection';
     protected $_eventObject = 'supportmessage_collection';
 
+    /**
+     * @param int $websiteId
+     * @return Collection
+     */
     public function addWebsiteFilter(int $websiteId): self
     {
         return $this->addFieldToFilter('website_id', $websiteId);
     }
 
+    /**
+     * @param int $customerId
+     * @return Collection
+     */
     public function addCustomerFilter(int $customerId): self
     {
         return $this->addFieldToFilter('user_id', $customerId);

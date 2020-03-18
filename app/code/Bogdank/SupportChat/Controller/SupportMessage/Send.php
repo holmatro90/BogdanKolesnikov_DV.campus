@@ -37,15 +37,15 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
     private $customerSession;
 
     /**
-     * @var \Bogdank\SupportChat\Model\GenerateHash $generateHash
+     * @var \Bogdank\SupportChat\Model\ChatHashManager $chatHashManager
      */
-    private $generateHash;
+    private $chatHashManager;
 
     /**
      * Save constructor
      * @param \Bogdank\SupportChat\Model\SupportMessageFactory $supportMessageFactory
      * @param \Bogdank\SupportChat\Model\ResourceModel\SupportMessage $supportMessageResource
-     * @param \Bogdank\SupportChat\Model\GenerateHash $generateHash
+     * @param \Bogdank\SupportChat\Model\ChatHashManager $chatHashManager
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
@@ -54,7 +54,7 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
     public function __construct(
         \Bogdank\SupportChat\Model\SupportMessageFactory $supportMessageFactory,
         \Bogdank\SupportChat\Model\ResourceModel\SupportMessage $supportMessageResource,
-        \Bogdank\SupportChat\Model\GenerateHash $generateHash,
+        \Bogdank\SupportChat\Model\ChatHashManager $chatHashManager,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\App\Action\Context $context,
@@ -64,17 +64,17 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
         $this->customerSession = $customerSession;
         $this->supportMessageFactory = $supportMessageFactory;
         $this->supportMessageResource = $supportMessageResource;
-        $this->generateHash = $generateHash;
+        $this->chatHashManager = $chatHashManager;
         $this->formKeyValidator = $formKeyValidator;
         $this->storeManager = $storeManager;
     }
+
     /**
      * @inheritDoc
      */
     public function execute()
     {
         // @TODO: implement security layer when we get back to JS
-
         try {
             $request = $this->getRequest();
 
@@ -87,12 +87,13 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
             /** @var SupportMessage $supportMessage */
             $supportMessage = $this->supportMessageFactory->create();
             $supportMessage->setUserId((int)$this->customerSession->getId())
-                ->setChatHash((string)$this->generateHash->getChatHashCookie())
-                ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
+                ->setChatHash($this->chatHashManager->getChatHash())
+                ->setWebsiteId((int) $this->storeManager->getWebsite()->getId())
                 ->setUserName($this->getRequest()->getParam('name'))
                 ->setUserType($userType)
                 ->setMessage($this->getRequest()->getParam('message'));
             $this->supportMessageResource->save($supportMessage);
+            $message = __('Success');
         } catch (\Exception $e) {
             $message = __('Your preferences can\'t be saved. Please, contact us if you see this message.');
         }
@@ -101,7 +102,8 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
         $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
         $response->setData([
             'customerName' => $this->getRequest()->getParam('name'),
-            'message' => $this->getRequest()->getParam('message')
+            'chatMessage' => $this->getRequest()->getParam('message'),
+            'message' => $message
         ]);
 
         return $response;

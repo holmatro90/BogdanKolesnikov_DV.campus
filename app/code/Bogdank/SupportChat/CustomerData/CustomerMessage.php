@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace Bogdank\SupportChat\CustomerData;
 
 use Bogdank\SupportChat\Model\ResourceModel\SupportMessage\Collection as MessageCollection;
+use Bogdank\SupportChat\Model\SupportMessage;
 
 class CustomerMessage implements \Magento\Customer\CustomerData\SectionSourceInterface
 {
     /**
-     * @var \Magento\Customer\Model\Session
+     * @var \Bogdank\SupportChat\Model\ChatHashManager $chatHashManager
      */
-    private $userSession;
+    private $chatHashManager;
 
     /**
-     * @var \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory
+     * @var \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory
      */
     private $messageCollectionFactory;
 
@@ -23,20 +24,18 @@ class CustomerMessage implements \Magento\Customer\CustomerData\SectionSourceInt
      */
     private $storeManager;
 
-    private $generateHash;
-
     /**
      * CustomerMessage constructor.
-     * @param \Magento\Customer\Model\Session $userSession
+     * @param \Bogdank\SupportChat\Model\ChatHashManager $chatHashManager
      * @param \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      */
     public function __construct(
-        \Magento\Customer\Model\Session $userSession,
+        \Bogdank\SupportChat\Model\ChatHashManager $chatHashManager,
         \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
-        $this->userSession = $userSession;
+        $this->chatHashManager = $chatHashManager;
         $this->messageCollectionFactory = $messageCollectionFactory;
         $this->storeManager = $storeManager;
     }
@@ -47,26 +46,17 @@ class CustomerMessage implements \Magento\Customer\CustomerData\SectionSourceInt
      */
     public function getSectionData(): array
     {
-        /** @var MessageCollection $MessageCollection */
-        $messageCollection = $this->messageCollectionFactory->create();
         $data = [];
+        /** @var MessageCollection $messageCollection */
+        $messageCollection = $this->messageCollectionFactory->create();
+        $messageCollection->addFieldToFilter('chat_hash', $this->chatHashManager->getChatHash())
+            ->addWebsiteFilter((int) $this->storeManager->getWebsite()->getId());
 
-        /** @var Chat $message */
-        foreach ($messageCollection as $message) {
-            $data[] = $message->getData();
-
-            if ($this->userSession->isLoggedIn()) {
-                /** @var messageCollection $messageCollection */
-                $messageCollection = $this->messageCollectionFactory->create();
-                $messageCollection->addCustomerFilter((int) $this->userSession->getId())
-                    ->addWebsiteFilter((int) $this->storeManager->getWebsite()->getId());
-
-                $data = $messageCollection->getData()[0];
-            } else {
-                $data = $this->userSession->getData('customer_message') ?? [];
-            }
-
-            return $data;
+        /** @var SupportMessage $userMessage */
+        foreach ($messageCollection as $supportMessage) {
+            $data[] = $supportMessage->getData();
         }
+
+        return $data;
     }
 }
