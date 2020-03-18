@@ -27,62 +27,72 @@ class Send extends \Magento\Framework\App\Action\Action implements \Magento\Fram
     private $storeManager;
 
     /**
-     * @var \Magento\Framework\Data\Form\FormKey\Validator
+     * @var \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
      */
     private $formKeyValidator;
+
+    /**
+     * @var \Magento\Customer\Model\Session $customerSession
+     */
+    private $customerSession;
+
+    /**
+     * @var \Bogdank\SupportChat\Model\GenerateHash $generateHash
+     */
+    private $generateHash;
 
     /**
      * Save constructor
      * @param \Bogdank\SupportChat\Model\SupportMessageFactory $supportMessageFactory
      * @param \Bogdank\SupportChat\Model\ResourceModel\SupportMessage $supportMessageResource
+     * @param \Bogdank\SupportChat\Model\GenerateHash $generateHash
+     * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
+     * @param \Magento\Framework\App\Action\Context $context
      */
     public function __construct(
         \Bogdank\SupportChat\Model\SupportMessageFactory $supportMessageFactory,
         \Bogdank\SupportChat\Model\ResourceModel\SupportMessage $supportMessageResource,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Bogdank\SupportChat\Model\GenerateHash $generateHash,
+        \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
-        \Magento\Framework\App\Action\Context $context
+        \Magento\Framework\App\Action\Context $context,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         parent::__construct($context);
+        $this->customerSession = $customerSession;
         $this->supportMessageFactory = $supportMessageFactory;
         $this->supportMessageResource = $supportMessageResource;
+        $this->generateHash = $generateHash;
         $this->formKeyValidator = $formKeyValidator;
         $this->storeManager = $storeManager;
     }
-
     /**
      * @inheritDoc
      */
     public function execute()
     {
         // @TODO: implement security layer when we get back to JS
-        // @TODO: save data to customer session for guests
 
         try {
             $request = $this->getRequest();
-            if (!$request->getParam('message') || !$request->getParam('name')) {
-                throw new LocalizedException(__('Name and message should not be empty'));
+
+            if (!$this->formKeyValidator->validate($request)) {
+                throw new LocalizedException(__('Something get wrong'));
             }
 
-            // @TODO: generate chat hash if not present in the customer session
-            $chatHash = 'test_chat_hash';
             // @TODO: get user type
             $userType = 'customer';
             /** @var SupportMessage $supportMessage */
             $supportMessage = $this->supportMessageFactory->create();
-
-            //@TODO: get `customer_id` from the session
-            $supportMessage->setUserId(1)
-                ->setChatHash($chatHash)
+            $supportMessage->setUserId((int)$this->customerSession->getId())
+                ->setChatHash((string)$this->generateHash->getChatHashCookie())
                 ->setWebsiteId((int)$this->storeManager->getWebsite()->getId())
-                 ->setUserName($this->getRequest()->getParam('name'))
-                 ->setUserType($userType)
+                ->setUserName($this->getRequest()->getParam('name'))
+                ->setUserType($userType)
                 ->setMessage($this->getRequest()->getParam('message'));
             $this->supportMessageResource->save($supportMessage);
-
         } catch (\Exception $e) {
             $message = __('Your preferences can\'t be saved. Please, contact us if you see this message.');
         }

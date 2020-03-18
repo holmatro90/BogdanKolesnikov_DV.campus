@@ -50,9 +50,6 @@ class SupportMessage extends \Magento\Framework\Model\AbstractModel
      */
     public function validate(): void
     {
-        if (!$this->getUserId()) {
-            throw new LocalizedException(__('Can\'t send message: %s is not set.', 'user_id'));
-        }
         if (!$this->getWebsiteId()) {
             throw new LocalizedException(__('Can\'t send message: %s is not set.', 'website_id'));
         }

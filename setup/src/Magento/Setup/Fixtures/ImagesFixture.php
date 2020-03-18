@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Generate images per each product
- * SupportMessage next format:
+ * Support next format:
  *  <product-images>
  *      <images-count>X</images-count>
  *      <images-per-product>Y</images-per-product>
