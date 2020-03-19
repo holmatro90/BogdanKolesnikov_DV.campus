@@ -25,19 +25,27 @@ class CustomerMessage implements \Magento\Customer\CustomerData\SectionSourceInt
     private $storeManager;
 
     /**
+     * @var \Magento\Customer\Model\Session
+     */
+    private $customerSession;
+
+    /**
      * CustomerMessage constructor.
      * @param \Bogdank\SupportChat\Model\ChatHashManager $chatHashManager
      * @param \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Customer\Model\Session $customerSession
      */
     public function __construct(
         \Bogdank\SupportChat\Model\ChatHashManager $chatHashManager,
         \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory,
-        \Magento\Store\Model\StoreManagerInterface $storeManager
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Customer\Model\Session $customerSession
     ) {
         $this->chatHashManager = $chatHashManager;
         $this->messageCollectionFactory = $messageCollectionFactory;
         $this->storeManager = $storeManager;
+        $this->customerSession = $customerSession;
     }
 
     /**
@@ -55,6 +63,14 @@ class CustomerMessage implements \Magento\Customer\CustomerData\SectionSourceInt
         /** @var SupportMessage $userMessage */
         foreach ($messageCollection as $supportMessage) {
             $data[] = $supportMessage->getData();
+
+            if ($this->customerSession->isLoggedIn()) {
+                $chatCollection = $this->messageCollectionFactory->create();
+                $chatCollection->addCustomerFilter((int) $this->customerSession->getId())
+                    ->addWebsiteFilter((int) $this->storeManager->getWebsite()->getId());
+
+                $data = $chatCollection->getData();
+            }
         }
 
         return $data;

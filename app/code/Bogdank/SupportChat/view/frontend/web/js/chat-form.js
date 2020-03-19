@@ -94,7 +94,7 @@ define([
             var $messageList = $('#chat-messages');
             var $messageItem = $('<li>').addClass('message-item customer');
             var $customerName = $('<p>').addClass('customer-name').text(messageData.customerName + ' ' + time);
-            var $customerMessage = $('<p>').addClass('customer-message-body').text(messageData.message);
+            var $customerMessage = $('<p>').addClass('customer-message-body').text(messageData.chatMessage);
             var $messageItemAdmin = $('<li>').addClass('message-item admin-message');
             var $adminMessage = $('<p>').addClass('admin-message-body').text('Our admins will contact you shortly');
             $messageItem.append($customerName);
