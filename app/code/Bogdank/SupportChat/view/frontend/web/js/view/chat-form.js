@@ -1,10 +1,30 @@
 define([
     'jquery',
+    'ko',
+    'uiComponent',
     'Magento_Customer/js/customer-data',
     'Magento_Ui/js/modal/modal'
-], function ($, customerData, modal) {
+], function ($, ko, Component, customerData) {
     'use strict';
 
+    return Component.extend({
+        defaults: {
+            template: 'Bogdank_SupportChat/chat-form'
+        },
+
+        inputValue: ko.observable(),
+
+        initObservable: function () {
+            this._super();
+            this.inputValue.subscribe(function (newValue) {
+                console.log(newValue);
+            });
+
+            return this;
+        }
+    });
+
+    // Start rewriting form into the Knockout component
     $.widget('bogdankSupportChat.form', {
         options: {
             chatButton: '.bogdank-support-chat-button',

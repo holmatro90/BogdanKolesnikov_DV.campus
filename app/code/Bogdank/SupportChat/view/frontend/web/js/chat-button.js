@@ -1,7 +1,7 @@
 define([
     'jquery',
     'jquery/ui',
-    'Bogdank_SupportChat/js/chat-form'
+    'Bogdank_SupportChat/js/view/chat-form'
 ], function ($, bogdankSupportChatForm) {
     'use strict';
 
