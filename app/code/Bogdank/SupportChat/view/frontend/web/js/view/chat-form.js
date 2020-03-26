@@ -9,18 +9,77 @@ define([
 
     return Component.extend({
         defaults: {
-            template: 'Bogdank_SupportChat/chat-form'
+            template: 'Bogdank_SupportChat/chat-form',
+            customerMessage: customerData.get('customer-message'),
+            action: ''
+        },
+        message: ko.observable(''),
+
+        /**
+         * Init modal from the component HTML
+         */
+        initModal: function (formSection) {
+            this.modal = $(formSection).modal({
+                buttons: []
+            });
         },
 
-        inputValue: ko.observable(),
-
-        initObservable: function () {
+        /** @inheritDoc */
+        initialize: function () {
             this._super();
-            this.inputValue.subscribe(function (newValue) {
-                console.log(newValue);
-            });
+
+            $(document).on(
+                $.proxy(this.openModal, this)
+            );
+        },
+
+
+        /** @inheritDoc */
+        initObservable: function () {
+            var customerMessages = customerData.get('customer-message')();
+
+            this._super();
+
 
             return this;
+        },
+
+        /**
+         * Open modal form with chat for message
+         */
+        openModal: function () {
+            this.modal.modal('openModal');
+        },
+
+        /**
+         * Send message
+         */
+        sendMessage: function () {
+            var payload = {
+                message: this.message,
+                'form_key': $.mage.cookies.get('form_key'),
+                'isAjax': 1
+            };
+
+            $.ajax({
+                url: this.action,
+                data: payload,
+                type: 'post',
+                dataType: 'json',
+                context: this,
+
+                /** @inheritdoc */
+                beforeSend: function () {
+                    $('body').trigger('processStart');
+                },
+
+                /** @inheritdoc */
+                success: function (response) {
+                    $('body').trigger('processStop');
+                    // this.renderMessage(response);
+                }
+            });
+
         }
     });
 
@@ -78,36 +137,6 @@ define([
             return $(this.element).validation().valid();
         },
 
-        /**
-         * Submit request via AJAX. Add form key to the post data.
-         */
-        ajaxSubmit: function () {
-            var formData = new FormData($(this.element).get(0));
-
-            formData.append('form_key', $.mage.cookies.get('form_key'));
-            formData.append('isAjax', 1);
-
-            $.ajax({
-                url: this.options.action,
-                data: formData,
-                processData: false,
-                contentType: false,
-                type: 'post',
-                dataType: 'json',
-                context: this,
-
-                /** @inheritdoc */
-                beforeSend: function () {
-                    $('body').trigger('processStart');
-                },
-
-                /** @inheritdoc */
-                success: function (response) {
-                    $('body').trigger('processStop');
-                    this.renderMessage(response);
-                }
-            });
-        },
         renderMessage: function (messageData) {
             var today = new Date();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
