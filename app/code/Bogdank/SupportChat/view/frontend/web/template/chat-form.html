@@ -5,13 +5,13 @@
       onsubmit="return false;"
       data-bind="submit: sendMessage, afterRender: initModal"
 >
-    <!--    <ul id="chat-messages" data-scope="">-->
-    <!--        <li class="message-item <?php // $block->escapeHtmlAttr($supportMessage->getUserType()) ?>">-->
-    <!--            <p class="customer-name"><?php // $block->escapeHtml($supportMessage->getUserName()) ?> <?php // $block->-->
-    <!--                escapeHtml($supportMessage->getCreatedAt()) ?></p>-->
-    <!--            <p class="customer-message-body"><?php // $block->escapeHtml($supportMessage->getMessage()) ?></p>-->
-    <!--        </li>-->
-    <!--    </ul>-->
+        <ul id="chat-messages" data-bind="foreach: customerMessage()['message']">
+            <li class="message-item <?php // $block->escapeHtmlAttr($supportMessage->getUserType()) ?>">
+                <p class="customer-name"><?php // $block->escapeHtml($supportMessage->getUserName()) ?> <?php // $block->
+                    escapeHtml($supportMessage->getCreatedAt()) ?></p>
+                <span class="customer-message-body" data-bind="text: message"></span>
+            </li>
+        </ul>
     <fieldset class="fieldset">
         <legend class="legend">
             <span translate="'Contact Us'"></span>
@@ -22,7 +22,7 @@
             </label>
             <div class="control">
                 <input data-bind="
-                        value: name,
+                        value: customername,
                         attr: {
                             id: 'name',
                             name: 'name',
@@ -42,8 +42,8 @@
             </label>
             <div class="control">
                 <input data-bind="
+                        value: message,
                         attr: {
-                            value: message,
                             id: 'message',
                             name: 'message',
                             title: 'Message',
