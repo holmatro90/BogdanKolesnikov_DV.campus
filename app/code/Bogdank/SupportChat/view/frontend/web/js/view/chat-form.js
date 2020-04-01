@@ -4,14 +4,16 @@ define([
     'uiComponent',
     'Magento_Customer/js/customer-data',
     'Bogdank_SupportChat/js/action/send-message',
+    'Bogdank_SupportChat/js/model/customer-messages',
     'Magento_Ui/js/modal/modal'
-], function ($, ko, Component, customerData, sendMessage) {
+], function ($, ko, Component, customerData, sendMessage, customerMessagesModel) {
     'use strict';
 
     return Component.extend({
         defaults: {
             template: 'Bogdank_SupportChat/chat-form',
             customerMessage: customerData.get('customer-message'),
+            messages: [],
             action: ''
         },
 
@@ -36,8 +38,24 @@ define([
             $(document).on(
                 $.proxy(this.openModal, this)
             );
+
+            this.messages.forEach(function (messageData) {
+                messageData.value = ko.observable('');
+            });
+
+            this.updateCustomerMessages(this.customerMessage());
         },
 
+        /**
+         * Populate customer preferences with data from the localStorage
+         */
+        updateCustomerMessages: function (newCustomerMessages) {
+            this.messages.forEach(function (messageData) {
+                messageData.value(newCustomerMessages[messageData['message']]);
+            });
+
+            customerMessagesModel.messages_data(this.messages);
+        },
 
         /** @inheritDoc */
         initObservable: function () {
@@ -143,5 +161,4 @@ define([
     //     }
     // });
 
-    return $.bogdankSupportChat.form;
 });

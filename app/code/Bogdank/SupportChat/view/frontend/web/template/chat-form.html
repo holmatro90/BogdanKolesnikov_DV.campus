@@ -5,13 +5,13 @@
       onsubmit="return false;"
       data-bind="submit: sendMessage, afterRender: initModal"
 >
-        <ul id="chat-messages" data-bind="foreach: customerMessage()['message']">
-            <li class="message-item <?php // $block->escapeHtmlAttr($supportMessage->getUserType()) ?>">
-                <p class="customer-name"><?php // $block->escapeHtml($supportMessage->getUserName()) ?> <?php // $block->
-                    escapeHtml($supportMessage->getCreatedAt()) ?></p>
-                <span class="customer-message-body" data-bind="text: message"></span>
-            </li>
-        </ul>
+    <ul id="chat-messages" data-bind="foreach: customerMessages">
+        <li class="message-item <?php // $block->escapeHtmlAttr($supportMessage->getUserType()) ?>">
+            <span class="customer-name" data-bind="text: name"></span>
+            <span class="customer-message-body" data-bind="text: message"></span>
+        </li>
+    </ul>
+
     <fieldset class="fieldset">
         <legend class="legend">
             <span translate="'Contact Us'"></span>
