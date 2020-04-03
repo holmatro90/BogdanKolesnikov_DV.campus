@@ -1,19 +1,11 @@
 <?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
-<div data-bind="scope: 'supportChatChatForm'">
+<div id="bogdank-support-chat-form-container" data-bind="scope: 'supportChatChatForm'">
     <!-- ko template: getTemplate() --><!-- /ko -->
-</div>
-
     <script type="text/x-magento-init">
     {
-        "*": {
-            "Magento_Ui/js/core/app": {
-                "components": {
-                    "supportChatChatForm": {
-                        "component": "bogdank_supportChat_chatForm",
-                        "action": "<?= $block->escapeUrl($block->getUrl('supportchat/supportmessage/send')) ?>"
-                    }
-                }
-            }
+        "#bogdank-support-chat-form-container": {
+            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
         }
     }
 </script>
+</div>

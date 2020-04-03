@@ -34,6 +34,7 @@ define([
             this._super();
 
             $(document).on(
+
                 $.proxy(this.openModal, this)
             );
         },
