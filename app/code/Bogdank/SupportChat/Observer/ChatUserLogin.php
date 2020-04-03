@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bogdank\SupportChat\Observer;
 
 use Bogdank\SupportChat\Model\ChatHashManager;
-use Bogdank\SupportChat\Model\ResourceModel\SupportMessage\Collection as MessageCollection;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
@@ -27,27 +26,39 @@ class ChatUserLogin implements ObserverInterface
     private $transactionFactory;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    private $logger;
+
+    /**
      * ChatUserLogin constructor.
      * @param ChatHashManager $generateHash
      * @param \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory
      * @param \Magento\Framework\DB\TransactionFactory $transactionFactory
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         \Bogdank\SupportChat\Model\ChatHashManager $generateHash,
         \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory,
-        \Magento\Framework\DB\TransactionFactory $transactionFactory
+        \Magento\Framework\DB\TransactionFactory $transactionFactory,
+        \Psr\Log\LoggerInterface $logger
     )
     {
         $this->generateHash = $generateHash;
         $this->messageCollectionFactory = $messageCollectionFactory;
         $this->transactionFactory = $transactionFactory;
+        $this->logger = $logger;
     }
 
     public function execute(Observer $observer)
     {
-        /** @var \Magento\Customer\Model\Data\Customer $customer */
-        $customer = $observer->getData('customer');
-        $this->updateChatMessagesData($customer);
+        try {
+            /** @var \Magento\Customer\Model\Data\Customer $customer */
+            $customer = $observer->getData('customer');
+            $this->updateChatMessagesData($customer);
+        } catch (\Exception $e) {
+            $this->logger->critical($e);
+        }
     }
 
     /**
@@ -64,7 +75,7 @@ class ChatUserLogin implements ObserverInterface
         foreach ($chatCollection as $supportMessage) {
             $supportMessage->setUserId((int)$customer->getId());
             $transaction->addObject($supportMessage);
-            $transaction->save();
         }
+        $transaction->save();
     }
 }
