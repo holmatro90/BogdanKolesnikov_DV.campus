@@ -12,7 +12,7 @@
         </referenceContainer>
         <referenceBlock name="before.body.end">
             <container name="bogdank.supportChat">
-                <block class="Bogdank\SupportChat\Block\MessageList"
+                <block class="Magento\Framework\View\Element\Template"
                        name="bogdank.supportChat.form"
                        template="Bogdank_SupportChat::chat-form.phtml"
                 />

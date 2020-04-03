@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Bogdank\SupportChat\Observer;
 
-use Bogdank\SupportChat\Model\GenerateHash;
+use Bogdank\SupportChat\Model\ChatHashManager;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
 class ChatUserLogin implements ObserverInterface
 {
     /**
-     * @var \Bogdank\SupportChat\Model\GenerateHash $generateHash
+     * @var \Bogdank\SupportChat\Model\ChatHashManager $generateHash
      */
     private $generateHash;
 
@@ -21,28 +21,61 @@ class ChatUserLogin implements ObserverInterface
     private $messageCollectionFactory;
 
     /**
+     * @var \Magento\Framework\DB\TransactionFactory $transactionFactory
+     */
+    private $transactionFactory;
+
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    private $logger;
+
+    /**
      * ChatUserLogin constructor.
-     * @param GenerateHash $generateHash
+     * @param ChatHashManager $generateHash
      * @param \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory
+     * @param \Magento\Framework\DB\TransactionFactory $transactionFactory
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
-        \Bogdank\SupportChat\Model\GenerateHash $generateHash,
-        \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory
-    ) {
+        \Bogdank\SupportChat\Model\ChatHashManager $generateHash,
+        \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory,
+        \Magento\Framework\DB\TransactionFactory $transactionFactory,
+        \Psr\Log\LoggerInterface $logger
+    )
+    {
         $this->generateHash = $generateHash;
         $this->messageCollectionFactory = $messageCollectionFactory;
-    }
-    public function execute(Observer $observer)
-    {
-        /** @var \Magento\Customer\Model\Data\Customer $customer */
-        $customer = $observer->getData('customer');
-        $this->updateChatMessages($customer);
+        $this->transactionFactory = $transactionFactory;
+        $this->logger = $logger;
     }
 
-    private function updateChatMessages(): void
+    public function execute(Observer $observer)
     {
-        /** @var \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory */
+        try {
+            /** @var \Magento\Customer\Model\Data\Customer $customer */
+            $customer = $observer->getData('customer');
+            $this->updateChatMessagesData($customer);
+        } catch (\Exception $e) {
+            $this->logger->critical($e);
+        }
+    }
+
+    /**
+     * @param \Magento\Customer\Model\Data\Customer $customer
+     * @throws \Exception
+     */
+    public function updateChatMessagesData($customer): void
+    {
         $chatCollection = $this->messageCollectionFactory->create();
-        $chatCollection->addFieldToFilter('chat_hash', $this->generateHash->getChatHashCookie());
+        /** @var \Magento\Framework\DB\Transaction $transaction */
+        $transaction = $this->transactionFactory->create();
+        $chatCollection->addFieldToFilter('chat_hash', $this->generateHash->getChatHash());
+        /** @var \Bogdank\SupportChat\Model\SupportMessage $supportMessage */
+        foreach ($chatCollection as $supportMessage) {
+            $supportMessage->setUserId((int)$customer->getId());
+            $transaction->addObject($supportMessage);
+        }
+        $transaction->save();
     }
 }

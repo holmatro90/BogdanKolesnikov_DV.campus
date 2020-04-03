@@ -5,7 +5,7 @@
         <column xsi:type="int" name="message_id" padding="10" unsigned="true" nullable="false" identity="true"
                 comment="Message ID"
         />
-        <column xsi:type="varchar" name="user_type" length="255" nullable="false"
+        <column xsi:type="varchar" name="user_type" length="25" nullable="false"
                 comment="User type"
         />
         <column xsi:type="int" name="user_id" padding="5" unsigned="true" nullable="false"
@@ -20,7 +20,7 @@
         <column xsi:type="smallint" name="website_id" padding="5" unsigned="true" nullable="false"
                 comment="Website ID"
         />
-        <column xsi:type="varchar" name="chat_hash" length="255" nullable="false"
+        <column xsi:type="varchar" name="chat_hash" length="30" nullable="false"
                 comment="Chat Hash"
         />
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
