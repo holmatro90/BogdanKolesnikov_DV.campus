@@ -5,10 +5,10 @@
       onsubmit="return false;"
       data-bind="submit: sendMessage, afterRender: initModal"
 >
-    <ul id="chat-messages" data-bind="foreach: customerMessages">
-        <li class="message-item <?php // $block->escapeHtmlAttr($supportMessage->getUserType()) ?>">
-            <span class="customer-name" data-bind="text: name"></span>
-            <span class="customer-message-body" data-bind="text: message"></span>
+    <ul id="chat-messages" data-bind="foreach: customerMessage()['messages']">
+        <li class="message-item customer" >
+            <p class="customer-name" text="user_name  + ' ' + created_at"></p>
+            <p class="customer-message-body" data-bind="text: message"></p>
         </li>
     </ul>
 
