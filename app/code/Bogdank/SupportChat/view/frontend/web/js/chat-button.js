@@ -8,7 +8,7 @@ define([
     $.widget('bogdankSupportChat.openButton', {
         options: {
             hideButton: true,
-            form: '#bogdank-support-chat-form',
+            form: '#bogdank-support-chat-form-container',
             closeChatMessage: '.chat-destroy'
         },
 
@@ -35,8 +35,8 @@ define([
          * Hide chat button
          */
         openChat: function () {
-            $(document).trigger('bogdank_SupportChat_openChat');
-            $(this.options.form).data('mage-modal').openModal();
+            $(document).trigger('bogdank_SupportChat_openModal');
+            $document.openModal();
             if (this.options.hideButton) {
                 $(this.element).removeClass('active');
             }

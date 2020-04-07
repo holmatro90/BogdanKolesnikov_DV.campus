@@ -24,6 +24,15 @@ define([
             success: function (response) {
                 $('body').trigger('processStop');
 
+            },
+
+            /** @inheritdoc */
+            error: function () {
+                $('body').trigger('processStop');
+                alert({
+                    title: $.mage.__('Error'),
+                    content: $.mage.__('Your message can\'t be send. Please, contact us if you see this message.')
+                });
             }
         });
     };

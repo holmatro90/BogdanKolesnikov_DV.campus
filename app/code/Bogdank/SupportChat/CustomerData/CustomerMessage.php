@@ -55,24 +55,19 @@ class CustomerMessage implements \Magento\Customer\CustomerData\SectionSourceInt
     public function getSectionData(): array
     {
         $data = [];
+
         /** @var MessageCollection $messageCollection */
         $messageCollection = $this->messageCollectionFactory->create();
         $messageCollection->addFieldToFilter('chat_hash', $this->chatHashManager->getChatHash())
-            ->addWebsiteFilter((int) $this->storeManager->getWebsite()->getId());
+            ->addWebsiteFilter((int)$this->storeManager->getWebsite()->getId());
 
         /** @var SupportMessage $userMessage */
         foreach ($messageCollection as $supportMessage) {
             $data[] = $supportMessage->getData();
-
-            if ($this->customerSession->isLoggedIn()) {
-                $chatCollection = $this->messageCollectionFactory->create();
-                $chatCollection->addCustomerFilter((int) $this->customerSession->getId())
-                    ->addWebsiteFilter((int) $this->storeManager->getWebsite()->getId());
-
-                $data = $chatCollection->getData();
-            }
         }
 
-        return $data;
+        return [
+            'messages' => $data
+        ];
     }
 }

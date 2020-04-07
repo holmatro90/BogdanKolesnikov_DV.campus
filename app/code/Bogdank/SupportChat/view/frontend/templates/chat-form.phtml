@@ -1,5 +1,13 @@
 <?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
-<div id="bogdank-support-chat-form-container" data-bind="scope: 'supportChatChatForm'">
+<div id="bogdank-support-chat-form-container" data-bind="scope: 'supportChatChatForm',
+mageInit: {
+        'Magento_Ui/js/modal/modal':{
+            'type': 'popup',
+            'title': 'Popup title',
+            'trigger': '[data-trigger=trigger]',
+            'responsive': true
+        }}
+">
     <!-- ko template: getTemplate() --><!-- /ko -->
     <script type="text/x-magento-init">
     {
