@@ -10,7 +10,6 @@ define([
 
     return Component.extend({
         defaults: {
-            template: 'Bogdank_SupportChat/chat-form',
             customerMessage: customerData.get('customer-message'),
             messages: [],
             action: ''
@@ -48,7 +47,6 @@ define([
          */
         openModal: function () {
             this.modal.modal('openModal');
-            debugger;
         },
 
         /**
