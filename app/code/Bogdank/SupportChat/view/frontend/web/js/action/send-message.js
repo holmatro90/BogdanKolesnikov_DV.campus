@@ -1,5 +1,6 @@
 define([
-    'jquery'
+    'jquery',
+    'Magento_Ui/js/modal/alert'
 ], function ($, alert) {
     'use strict';
 

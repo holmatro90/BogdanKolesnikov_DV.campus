@@ -89,7 +89,7 @@ class ChatUserLogin implements ObserverInterface
             $supportMessage->setUserId((int)$customer->getId())
                 ->setChatHash($oldChatHash);
             if ($oldChatHash) {
-//                $supportMessage->setChatHash($oldChatHash);
+                $supportMessage->setChatHash($oldChatHash);
             } else {
                 $supportMessage = $this->customerSession->getChatHash();
             }

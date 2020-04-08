@@ -19,13 +19,13 @@
                     <arguments>
                         <argument name="jsLayout" xsi:type="array">
                             <item name="components" xsi:type="array">
-                                <item name="customerPreferencesForm" xsi:type="array">
+                                <item name="supportChatChatForm" xsi:type="array">
                                     <item name="component" xsi:type="string">bogdank_supportChat_chatForm</item>
                                     <item name="config" xsi:type="array">
-                                        <item name="template" xsi:type="string">bogdank_SupportChat/chat-form</item>
+                                        <item name="template" xsi:type="string">Bogdank_SupportChat/chat-form</item>
                                         <item name="action"
                                               xsi:type="url"
-                                              path="bogdank_support_chat/supportmessage/send"
+                                              path="supportchat/supportmessage/send"
                                         />
                                     </item>
                                 </item>

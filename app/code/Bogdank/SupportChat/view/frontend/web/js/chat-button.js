@@ -2,12 +2,12 @@ define([
     'jquery',
     'jquery/ui',
     'Bogdank_SupportChat/js/view/chat-form'
-], function ($, bogdankSupportChatForm) {
+], function ($) {
     'use strict';
 
     $.widget('bogdankSupportChat.openButton', {
         options: {
-            hideButton: true,
+            hideButton: false,
             form: '#bogdank-support-chat-form',
             closeChatMessage: '.chat-destroy'
         },
@@ -37,19 +37,6 @@ define([
         openChat: function () {
             $(document).trigger('bogdank_SupportChat_openModal');
             $(this.options.form).data('mage-modal').openModal();
-            if (this.options.hideButton) {
-                $(this.element).removeClass('active');
-            }
-        },
-
-        /**
-         * Show chat button
-         */
-        closeChat: function () {
-            if (this.options.hideButton) {
-                $(this.element).addClass('active');
-            }
-
         },
 
         destroyChat: function () {

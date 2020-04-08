@@ -11,8 +11,7 @@ define([
     return Component.extend({
         defaults: {
             customerMessage: customerData.get('customer-message'),
-            messages: [],
-            action: ''
+            messages: []
         },
 
         message: ko.observable(),
@@ -23,6 +22,7 @@ define([
             this._super();
 
             $(document).on(
+                'bogdank_SupportChat_openModal.bogdank_supportChat',
                 $.proxy(this.openModal, this)
             );
 
