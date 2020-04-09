@@ -28,6 +28,15 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     {
         return $this->addFieldToFilter('user_id', $customerId);
     }
+
+    /**
+     * @param string $chatHash
+     * @return $this
+     */
+    public function addChatHashFilter(string $chatHash): self
+    {
+        return $this->addFieldToFilter('chat_hash', $chatHash);
+    }
     /**
      * @inheritDoc
      */

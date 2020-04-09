@@ -6,7 +6,7 @@
       data-bind="submit: sendMessage, afterRender: initModal"
 >
     <ul id="chat-messages" data-bind="foreach: customerMessage()['messages']">
-        <li class="message-item customer" >
+        <li class="message-item customer">
             <p class="customer-name" text="user_name  + ' ' + created_at"></p>
             <p class="customer-message-body" data-bind="text: message"></p>
         </li>
@@ -32,7 +32,7 @@
                         "
                        class="input-text"
                        type="text"
-                       data-validate="{required:true}"
+                       required="true"
                 />
             </div>
         </div>
@@ -52,7 +52,7 @@
                         "
                        class="input-text"
                        type="text"
-                       data-validate="{required:true}"
+                       required="true"
                 />
             </div>
         </div>
