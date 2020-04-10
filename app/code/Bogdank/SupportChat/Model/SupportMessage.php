@@ -20,9 +20,9 @@ use Magento\Framework\Exception\LocalizedException;
  * @method int getWebsiteId()
  * @method $this setWebsiteId(int $websiteId)
  * @method string getChatHash()
- * @method $this setChatHash(string $ChatHash)
+ * @method $this setChatHash(string $chatHash)
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $CreatedAt)
+ * @method $this setCreatedAt(string $createdAt)
  */
 class SupportMessage extends \Magento\Framework\Model\AbstractModel
 {

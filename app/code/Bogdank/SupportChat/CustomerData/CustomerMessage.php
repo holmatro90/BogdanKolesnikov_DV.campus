@@ -41,8 +41,7 @@ class CustomerMessage implements \Magento\Customer\CustomerData\SectionSourceInt
         \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\Session $customerSession
-    )
-    {
+    ) {
         $this->chatHashManager = $chatHashManager;
         $this->messageCollectionFactory = $messageCollectionFactory;
         $this->storeManager = $storeManager;
@@ -56,23 +55,19 @@ class CustomerMessage implements \Magento\Customer\CustomerData\SectionSourceInt
     public function getSectionData(): array
     {
         $data = [];
+
         /** @var MessageCollection $messageCollection */
         $messageCollection = $this->messageCollectionFactory->create();
         $messageCollection->addFieldToFilter('chat_hash', $this->chatHashManager->getChatHash())
             ->addWebsiteFilter((int)$this->storeManager->getWebsite()->getId());
 
-        if ($this->customerSession->isLoggedIn()) {
-            $chatCollection = $this->messageCollectionFactory->create();
-            $chatCollection->addCustomerFilter((int)$this->customerSession->getId())
-                ->addWebsiteFilter((int)$this->storeManager->getWebsite()->getId());
-
-            $data = $chatCollection->getData();
-        }
         /** @var SupportMessage $userMessage */
         foreach ($messageCollection as $supportMessage) {
             $data[] = $supportMessage->getData();
         }
 
-        return $data;
+        return [
+            'messages' => $data
+        ];
     }
 }

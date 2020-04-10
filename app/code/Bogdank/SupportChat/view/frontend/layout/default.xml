@@ -8,6 +8,7 @@
                    name="bogdank.supportChat.button"
                    before="minicart"
                    template="Bogdank_SupportChat::chat-button.phtml"
+                   ifconfig="bogdank_support_chat/general/enabled"
             />
         </referenceContainer>
         <referenceBlock name="before.body.end">
@@ -15,7 +16,25 @@
                 <block class="Magento\Framework\View\Element\Template"
                        name="bogdank.supportChat.form"
                        template="Bogdank_SupportChat::chat-form.phtml"
-                />
+                       ifconfig="bogdank_support_chat/general/enabled"
+                >
+                    <arguments>
+                        <argument name="jsLayout" xsi:type="array">
+                            <item name="components" xsi:type="array">
+                                <item name="supportChatChatForm" xsi:type="array">
+                                    <item name="component" xsi:type="string">bogdank_supportChat_chatForm</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="template" xsi:type="string">Bogdank_SupportChat/chat-form</item>
+                                        <item name="action"
+                                              xsi:type="url"
+                                              path="supportchat/supportmessage/send"
+                                        />
+                                    </item>
+                                </item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
             </container>
         </referenceBlock>
     </body>
