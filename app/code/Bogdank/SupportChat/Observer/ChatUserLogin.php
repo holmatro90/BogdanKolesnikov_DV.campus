@@ -31,23 +31,30 @@ class ChatUserLogin implements ObserverInterface
     private $logger;
 
     /**
+     * @var \Magento\Customer\Model\Session $customerSession
+     */
+    private $customerSession;
+
+    /**
      * ChatUserLogin constructor.
      * @param ChatHashManager $generateHash
      * @param \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory
      * @param \Magento\Framework\DB\TransactionFactory $transactionFactory
      * @param \Psr\Log\LoggerInterface $logger
+     * @param \Magento\Customer\Model\Session $userSession
      */
     public function __construct(
         \Bogdank\SupportChat\Model\ChatHashManager $generateHash,
         \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory,
         \Magento\Framework\DB\TransactionFactory $transactionFactory,
-        \Psr\Log\LoggerInterface $logger
-    )
-    {
+        \Psr\Log\LoggerInterface $logger,
+        \Magento\Customer\Model\Session $userSession
+    ) {
         $this->generateHash = $generateHash;
         $this->messageCollectionFactory = $messageCollectionFactory;
         $this->transactionFactory = $transactionFactory;
         $this->logger = $logger;
+        $this->customerSession = $userSession;
     }
 
     public function execute(Observer $observer)
@@ -68,14 +75,30 @@ class ChatUserLogin implements ObserverInterface
     public function updateChatMessagesData($customer): void
     {
         $chatCollection = $this->messageCollectionFactory->create();
-        /** @var \Magento\Framework\DB\Transaction $transaction */
-        $transaction = $this->transactionFactory->create();
-        $chatCollection->addFieldToFilter('chat_hash', $this->generateHash->getChatHash());
+
+        // Find old customer message
+        // if it exists: use old chat hash; remove chat hash from the session data
+
+        $chatCollection->addFieldToFilter('user_id', $this->customerSession->getCustomerId())
+                ->addFieldToFilter('chat_hash', $this->customerSession->getChatHash());
+
+        $oldChatHash = $chatCollection->getFirstItem()->getData('chat_hash');
+
         /** @var \Bogdank\SupportChat\Model\SupportMessage $supportMessage */
         foreach ($chatCollection as $supportMessage) {
-            $supportMessage->setUserId((int)$customer->getId());
+            $supportMessage->setUserId((int)$customer->getId())
+                ->setChatHash($oldChatHash);
+            if ($oldChatHash) {
+                $supportMessage->setChatHash($oldChatHash);
+            } else {
+                $supportMessage = $this->customerSession->getChatHash();
+            }
+
+            /** @var \Magento\Framework\DB\Transaction $transaction */
+            $transaction = $this->transactionFactory->create();
             $transaction->addObject($supportMessage);
         }
+
         $transaction->save();
     }
 }

@@ -1,0 +1,68 @@
+<form class="form"
+      action="javascript:void(0);"
+      id="bogdank-support-chat-form"
+      method="post"
+      onsubmit="return false;"
+      data-bind="submit: sendMessage, afterRender: initModal"
+>
+    <ul id="chat-messages" data-bind="foreach: customerMessage()['messages']">
+        <li class="message-item customer" >
+            <p class="customer-name" text="user_name  + ' ' + created_at"></p>
+            <p class="customer-message-body" data-bind="text: message"></p>
+        </li>
+    </ul>
+
+    <fieldset class="fieldset">
+        <legend class="legend">
+            <span translate="'Contact Us'"></span>
+        </legend>
+        <div class="field name required">
+            <label class="label" data-bind="attr: { for: 'name'}">
+                <span translate="'Name'"></span>
+            </label>
+            <div class="control">
+                <input data-bind="
+                        value: customername,
+                        attr: {
+                            id: 'name',
+                            name: 'name',
+                            title: 'Name',
+                            placeholder: 'Name'
+                        }
+                        "
+                       class="input-text"
+                       type="text"
+                       data-validate="{required:true}"
+                />
+            </div>
+        </div>
+        <div class="field text required">
+            <label class="label" data-bind="attr: { for: 'message'}">
+                <span translate="'Message'"></span>
+            </label>
+            <div class="control">
+                <input data-bind="
+                        value: message,
+                        attr: {
+                            id: 'message',
+                            name: 'message',
+                            title: 'Message',
+                            placeholder: 'Message'
+                        }
+                        "
+                       class="input-text"
+                       type="text"
+                       data-validate="{required:true}"
+                />
+            </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <input type="hidden" name="hideit" id="hideit" value=""/>
+            <button type="submit" data-bind="attr: { title: $t('Send') }" class="action submit primary">
+                <span translate="'Send'"></span>
+            </button>
+        </div>
+    </div>
+</form>

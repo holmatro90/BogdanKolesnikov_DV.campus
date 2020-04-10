@@ -1,57 +1,11 @@
 <?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
-<form class="form"
-      action="javascript:void(0);"
-      id="bogdank-support-chat-form"
-      method="post"
-      data-mage-init='{"bogdank_supportChat_chatForm":{
-        "action": "<?= $block->escapeUrl($block->getUrl('supportchat/supportmessage/send')) ?>"
-      }}'
-      onsubmit="return false;"
-      style="display: none;"
->
-    <ul id="chat-messages" data-scope="">
-        <li class="message-item <?php // $block->escapeHtmlAttr($supportMessage->getUserType()) ?>">
-            <p class="customer-name"><?php // $block->escapeHtml($supportMessage->getUserName()) ?> <?php // $block->escapeHtml($supportMessage->getCreatedAt()) ?></p>
-            <p class="customer-message-body"><?php // $block->escapeHtml($supportMessage->getMessage()) ?></p>
-        </li>
-    </ul>
-    <fieldset class="fieldset">
-        <legend class="legend">
-            <span><?= $block->escapeHtml(__('Contact Us')) ?></span>
-        </legend>
-        <div class="field name required">
-            <label class="label" for="name">
-                <span><?= $block->escapeHtml(__('Name')) /* @TODO: get attribute label translation */ ?></span>
-            </label>
-            <div class="control">
-                <input name="name"
-                       title="<?= $block->escapeHtmlAttr(__('Name')) ?>"
-                       class="input-text"
-                       type="text"
-                       data-validate="{required:true}"
-                />
-            </div>
-        </div>
-        <div class="field email required">
-            <label class="label" for="message">
-                <span><?= $block->escapeHtml(__('Message')) ?></span>
-            </label>
-            <div class="control">
-                <input name="message"
-                       title="<?= $block->escapeHtmlAttr(__('Message')) ?>"
-                       class="input-text"
-                       type="text"
-                       data-validate="{required:true}"
-                />
-            </div>
-        </div>
-    </fieldset>
-    <div class="actions-toolbar">
-        <div class="primary">
-            <input type="hidden" name="hideit" id="hideit" value=""/>
-            <button type="submit" title="<?= $block->escapeHtmlAttr(__('Send')) ?>" class="action submit primary">
-                <span><?= $block->escapeHtml(__('Send')) ?></span>
-            </button>
-        </div>
-    </div>
-</form>
+<div id="bogdank-support-chat-form-container" data-bind="scope: 'supportChatChatForm'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+    {
+        "#bogdank-support-chat-form-container": {
+            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+        }
+    }
+</script>
+</div>
