@@ -37,6 +37,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     {
         return $this->addFieldToFilter('chat_hash', $chatHash);
     }
+
     /**
      * @inheritDoc
      */

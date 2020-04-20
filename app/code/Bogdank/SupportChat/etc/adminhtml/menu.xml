@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Bogdank_SupportChat::chat"
+             title="Bogdank"
+             module="Bogdank_SupportChat"
+             sortOrder="50"
+             parent="Magento_Customer::customer"
+             resource="Bogdank_SupportChat::listing"
+        />
+        <add id="Bogdank_SupportChat::listing"
+             title="Support Message"
+             translate="title"
+             module="Bogdank_SupportChat"
+             sortOrder="10"
+             parent="Bogdank_SupportChat::chat"
+             action="bogdank_support_chat/chat/index"
+             resource="Bogdank_SupportChat::listing"
+        />
+    </menu>
+</config>
