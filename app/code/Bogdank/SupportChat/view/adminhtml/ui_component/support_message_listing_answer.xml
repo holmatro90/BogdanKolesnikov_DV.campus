@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd"
+>
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">support_message_listing.support_message_listing_data_source</item>
+            <item name="provider" xsi:type="string">
+                support_message_listing_answer.support_message_listing_answer_data_source
+            </item>
         </item>
     </argument>
     <settings>
-        <spinner>messages_columns</spinner>
+        <spinner>answer_columns</spinner>
         <deps>
-            <dep>support_message_listing.support_message_listing_data_source</dep>
+            <dep>support_message_listing_answer.support_message_listing_answer_data_source</dep>
         </deps>
     </settings>
-    <dataSource name="support_message_listing_data_source" component="Magento_Ui/js/grid/provider">
+    <dataSource name="support_message_listing_answer_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
             <storageConfig>
                 <param name="indexField" xsi:type="string">message_id</param>
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>Bogdank_SupportChat::listing</aclResource>
-        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"
-                      name="support_message_listing_data_source">
+        <aclResource>Bogdank_SupportChat::answer</aclResource>
+        <dataProvider class="Bogdank\SupportChat\Ui\Component\Listing\DataProvider"
+                      name="support_message_listing_answer_data_source">
             <settings>
                 <requestFieldName>message_id</requestFieldName>
                 <primaryFieldName>message_id</primaryFieldName>
@@ -32,9 +35,8 @@
         <settings>
             <sticky>true</sticky>
         </settings>
-        <bookmark name="bookmarks"/> 
+        <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
-        <filterSearch name="fulltext"/>
         <filters name="listing_filters"/>
         <exportButton name="export_button"/>
         <massaction name="listing_massaction">
@@ -52,14 +54,14 @@
         </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
-    <columns name="messages_columns">
+    <columns name="answer_columns">
         <settings>
             <editorConfig>
                 <param name="enabled" xsi:type="boolean">false</param>
             </editorConfig>
             <childDefaults>
                 <param name="fieldAction" xsi:type="array">
-                    <item name="provider" xsi:type="string">support_message_listing.support_message_listing_data_source</item>
+                    <item name="provider" xsi:type="string">support_message_listing_answer.support_message_listing_answer_data_source</item>
                     <item name="target" xsi:type="string">applyAction</item>
                     <item name="params" xsi:type="array">
                         <item name="0" xsi:type="string">edit</item>

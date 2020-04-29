@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">
+                support_message_answer_form.support_message_answer_form_data_source
+            </item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save" class="Bogdank\SupportChat\Block\Adminhtml\Chat\Answer\SendButton"/>
+        </buttons>
+                <namespace>support_message_answer_form</namespace>
+                <dataScope>data</dataScope>
+        <deps>
+            <dep>support_message_answer_form.support_message_answer_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="support_message_answer_form_data_source" component="Magento_Ui/js/form/provider">
+        <settings>
+            <submitUrl path="bogdank_support_chat/chat/send"/>
+        </settings>
+        <dataProvider class="Bogdank\SupportChat\Ui\Component\Form\DataProvider"
+                      name="support_message_answer_form_data_source">
+            <settings>
+                <requestFieldName>message_id</requestFieldName>
+                <primaryFieldName>message_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <insertListing class="Bogdank\SupportChat\Ui\Component\Listing\Container" name="support_message_listing_answer">
+        <settings>
+            <dataLinks>
+                <exports>false</exports>
+                <imports>true</imports>
+            </dataLinks>
+            <autoRender>true</autoRender>
+            <dataScope>support_message_listing_answer</dataScope>
+            <ns>support_message_listing_answer</ns>
+        </settings>
+    </insertListing>
+    <fieldset name="general">
+        <settings>
+            <label/>
+        </settings>
+        <field name="answer">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Answer Message Form</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                </item>
+            </argument>
+        </field>
+<!--        @TODO:Create button using UIcomponent-->
+<!--        <button name="custom_button">-->
+<!--            <argument name="data" xsi:type="array">-->
+<!--                <item name="config" xsi:type="array">-->
+<!--                    <item name="buttonClasses" xsi:type="string">custom-button-class</item>-->
+<!--                    <item name="actions" xsi:type="array">-->
+<!--                        <item name="0" xsi:type="array">-->
+<!--                            <item name="targetName" xsi:type="string">TARGET_NAME</item>-->
+<!--                            <item name="actionName" xsi:type="string">ACTION_NAME</item>-->
+<!--                        </item>-->
+<!--                    </item>-->
+<!--                </item>-->
+<!--            </argument>-->
+<!--            <settings>-->
+<!--                <displayAsLink>false</displayAsLink>-->
+<!--                <title translate="true">Send Answer Message</title>-->
+<!--            </settings>-->
+<!--        </button>-->
+    </fieldset>
+</form>
