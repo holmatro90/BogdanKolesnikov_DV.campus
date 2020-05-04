@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Bogdank\SupportChat\CustomerData;
 
-use Bogdank\SupportChat\Model\ResourceModel\SupportMessage\Collection as MessageCollection;
-use Bogdank\SupportChat\Model\SupportMessage;
+use Bogdank\SupportChat\Model\SupportChatData;
 
 class CustomerMessage implements \Magento\Customer\CustomerData\SectionSourceInterface
 {
@@ -15,36 +14,52 @@ class CustomerMessage implements \Magento\Customer\CustomerData\SectionSourceInt
     private $chatHashManager;
 
     /**
-     * @var \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory
+     * @var \Bogdank\SupportChat\Model\SupportChatRepository $supportChatRepository
      */
-    private $messageCollectionFactory;
+    private $supportChatRepository;
 
     /**
-     * @var \Magento\Store\Model\StoreManagerInterface
+     * @var \Magento\Framework\Api\FilterBuilder $filterBuilder
+     */
+    private $filterBuilder;
+
+    /**
+     * @var \Magento\Store\Model\StoreManagerInterface $storeManager
      */
     private $storeManager;
 
     /**
-     * @var \Magento\Customer\Model\Session
+     * @var \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
+     */
+    private $searchCriteriaBuilder;
+
+    /**
+     * @var \Magento\Customer\Model\Session $customerSession
      */
     private $customerSession;
 
     /**
      * CustomerMessage constructor.
      * @param \Bogdank\SupportChat\Model\ChatHashManager $chatHashManager
-     * @param \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory
+     * @param \Bogdank\SupportChat\Model\SupportChatRepository $supportChatRepository
+     * @param \Magento\Framework\Api\FilterBuilder $filterBuilder
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
      * @param \Magento\Customer\Model\Session $customerSession
      */
     public function __construct(
         \Bogdank\SupportChat\Model\ChatHashManager $chatHashManager,
-        \Bogdank\SupportChat\Model\ResourceModel\SupportMessage\CollectionFactory $messageCollectionFactory,
+        \Bogdank\SupportChat\Model\SupportChatRepository $supportChatRepository,
+        \Magento\Framework\Api\FilterBuilder $filterBuilder,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
         \Magento\Customer\Model\Session $customerSession
     ) {
         $this->chatHashManager = $chatHashManager;
-        $this->messageCollectionFactory = $messageCollectionFactory;
+        $this->supportChatRepository = $supportChatRepository;
+        $this->filterBuilder = $filterBuilder;
         $this->storeManager = $storeManager;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->customerSession = $customerSession;
     }
 
@@ -56,13 +71,21 @@ class CustomerMessage implements \Magento\Customer\CustomerData\SectionSourceInt
     {
         $data = [];
 
-        /** @var MessageCollection $messageCollection */
-        $messageCollection = $this->messageCollectionFactory->create();
-        $messageCollection->addFieldToFilter('chat_hash', $this->chatHashManager->getChatHash())
-            ->addWebsiteFilter((int)$this->storeManager->getWebsite()->getId());
+        $this->searchCriteriaBuilder->addFilters([
+            $this->filterBuilder
+                ->setField('chat_hash')
+                ->setValue($this->chatHashManager->getChatHash())
+                ->setConditionType('eq')
+                ->create(),
+            $this->filterBuilder
+                ->setField('website_id')
+                ->setValue((int) $this->storeManager->getWebsite()->getId())
+                ->setConditionType('eq')
+                ->create()
+        ]);
 
-        /** @var SupportMessage $userMessage */
-        foreach ($messageCollection as $supportMessage) {
+        /** @var SupportChatData $supportMessages */
+        foreach ($supportMessages as $supportMessage) {
             $data[] = $supportMessage->getData();
         }
 
