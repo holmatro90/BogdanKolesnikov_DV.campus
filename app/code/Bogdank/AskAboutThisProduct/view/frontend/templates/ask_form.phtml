@@ -1,0 +1,63 @@
+<?php /** @var \Bogdank\AskAboutThisProduct\Block\CustomerData $block */ ?>
+<form class="form"
+      action="javascript:void(0);"
+      id="bogdank-ask-about-this-product-form"
+      method="post"
+      data-mage-init='{"bogdank_askAboutThisProduct_askForm":{
+        "action": "<?= $block->escapeUrl($block->getUrl('bogdank_askabout_controller/sendquestion/send')) ?>"
+      }}'
+      onsubmit="return false;"
+      style="display: none;"
+>
+    <fieldset class="fieldset">
+        <legend class="legend">
+            <span><?= $block->escapeHtml(__('Contact Us')) ?></span>
+        </legend>
+        <div class="field name required">
+            <label class="label" for="name">
+                <span><?= $block->escapeHtml(__('Name')) ?></span>
+            </label>
+            <div class="control">
+                <input name="name"
+                       title="<?= $block->escapeHtmlAttr(__('Name')) ?>"
+                       class="input-text"
+                       type="text"
+                       data-validate="{required:true}"
+                />
+            </div>
+        </div>
+        <div class="field email required">
+            <label class="label" for="email">
+                <span><?= $block->escapeHtml(__('Email')) ?></span>
+            </label>
+            <div class="control">
+                <input name="message"
+                       title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                       class="input-text"
+                       type="text"
+                       data-validate="{required:true}"
+                />
+            </div>
+        </div>
+        <div class="field question required">
+            <label class="label" for="question">
+                <span><?= $block->escapeHtml(__('Ask question')) ?></span>
+            </label>
+            <div class="control">
+                <input name="question"
+                       title="<?= $block->escapeHtmlAttr(__('Question')) ?>"
+                       class="input-text"
+                       type="text"
+                       data-validate="{required:true}"
+                />
+            </div>
+            <input type="hidden" id="sku" name="sku" value="<?php echo $block->getProductSku(); ?>">
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" title="<?= $block->escapeHtmlAttr(__('Send')) ?>" class="action submit primary">
+                <span><?= $block->escapeHtml(__('Send')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>

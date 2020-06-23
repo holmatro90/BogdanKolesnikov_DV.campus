@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.main">
+            <container name="ask.button" htmlTag="div" htmlClass="ask-button-container" before="demo.message">
+                <block class="Magento\Framework\View\Element\Template"
+                       name="product.ask.button"
+                       before="-"
+                       template="Bogdank_AskAboutThisProduct::ask_button.phtml"
+                />
+            </container>
+        </referenceContainer>
+        <referenceBlock name="before.body.end">
+            <container name="ask.form">
+                <block class="Magento\Framework\View\Element\Template"
+                       name="product.ask.form"
+                       template="Bogdank_AskAboutThisProduct::ask_form.phtml"
+                />
+            </container>
+        </referenceBlock>
+    </body>
+</page>
